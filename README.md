@@ -1,4 +1,4 @@
-swiftype-py
-===========
+Swiftype API Client for Python
+===============================
 
-Swiftype Python Client
+
