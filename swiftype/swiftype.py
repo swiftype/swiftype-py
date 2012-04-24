@@ -6,12 +6,15 @@ import base64
 import datetime
 
 from version import VERSION
+
 USER_AGENT = 'Swiftype-Python/' + VERSION
+DEFAULT_API_HOST = 'api.swiftype.com'
+DEFAULT_API_BASE_PATH = '/api/v1/'
 
 class Client(object):
     
-  def __init__(self, username=None, password=None, api_key=None, host='api.swiftype.com'):
-      self.conn = Connection(username=username, password=password, api_key=api_key, host=host, base_path='/api/v1/')
+  def __init__(self, username=None, password=None, api_key=None, host=DEFAULT_API_HOST):
+      self.conn = Connection(username=username, password=password, api_key=api_key, host=host, base_path=DEFAULT_API_BASE_PATH)
 
   def engines(self):
     return self.conn._get(self.__engines_path())
@@ -69,58 +72,6 @@ class Client(object):
     query_string = {'q': query}
     full_query = dict(query_string.items() + options.items())
     return self.conn._get(self.__suggest_path(engine_id), data=full_query)
-    
-  def test_documents(self):
-    
-    self.search('testengine2','title',{'fetch_fields': {'type1': ['title','doctype']}})
-    
-    # self.destroy_documents('testengine2','type1',[2,6,7])
-    
-    # doc2 = { 'external_id': 2, 'fields': [{'name': 'title', 'value': 'newer title 2!!!', 'type': 'string'},{'name': 'doctype', 'value': 'user', 'type': 'enum'}]}
-    # doc7 = { 'external_id': 7, 'fields': [{'name': 'title', 'value': 'my title 7!!', 'type': 'string'},{'name': 'doctype', 'value': 'user', 'type': 'enum'}]}
-    # self.create_or_update_documents('testengine2','type1',[doc2,doc7])
-
-    # doc5 = { 'external_id': 5, 'fields': [{'name': 'title', 'value': 'my title 5!!!!', 'type': 'string'},{'name': 'doctype', 'value': 'user', 'type': 'enum'}]}    
-    # self.create_or_update_document('testengine2','type1',doc5)
-
-    # doc1 = { 'external_id': 1, 'fields': { 'title': 'new title 1!!!'}}
-    # doc2 = { 'external_id': 2, 'fields': { 'title': 'new title 2!!!'}}
-    # self.update_documents('testengine2','type1',[doc1,doc2])
-    
-    # doc1 = { 'external_id': 1, 'fields': [{'name': 'title', 'value': 'my title 1', 'type': 'string'},{'name': 'doctype', 'value': 'user', 'type': 'enum'}]}
-    # doc2 = { 'external_id': 2, 'fields': [{'name': 'title', 'value': 'my title 2', 'type': 'string'},{'name': 'doctype', 'value': 'user', 'type': 'enum'}]}
-    # doc3 = { 'external_id': 3, 'fields': [{'name': 'title', 'value': 'my title 3', 'type': 'string'},{'name': 'doctype', 'value': 'user', 'type': 'enum'}]}
-    # doc4 = { 'external_id': 4, 'fields': [{'name': 'title', 'value': 'my title 4', 'type': 'string'},{'name': 'doctype', 'value': 'user', 'type': 'enum'}]}
-    # self.create_document('testengine2','type1',doc1)
-    # self.create_document('testengine2','type1',doc2)
-    # self.create_documents('testengine2','type1',[doc3,doc4])
-    
-    # fields = { 'title':'new title 1 !!!!!'}
-    # self.update_document('testengine2','type1',1,fields)
-
-  
-  def test_engines(self):
-    self.engines()
-    self.create_engine('testengine1')
-    self.create_engine('testengine2')
-    self.engines()
-    self.destroy_engine('testengine1')
-    self.engines()
-    
-  def test_types(self):
-    self.document_types('testengine2')
-    self.create_document_type('testengine2','type1')
-    self.create_document_type('testengine2','type2')
-    self.document_types('testengine2')
-    self.destroy_document_type('testengine2','type2')
-    
-  def print_paths(self):
-    print self.__engines_path()
-    print self.__engine_path('bookstore')
-    print self.__document_types_path('bookstore')
-    print self.__document_type_path('bookstore','books')
-    print self.__documents_path('bookstore','books')
-    print self.__document_path('bookstore','books','123123')
     
   def __search_path(self, engine_id): return 'engines/%s/search' % (engine_id)
   def __suggest_path(self, engine_id): return 'engines/%s/suggest' % (engine_id)
