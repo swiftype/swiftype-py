@@ -68,6 +68,11 @@ class Client(object):
     full_query = dict(query_string.items() + options.items())
     return self.conn._get(self.__search_path(engine_id), data=full_query)
     
+  def search_document_type(self, engine_id, document_type_id, query, options={}):
+    query_string = {'q': query}
+    full_query = dict(query_string.items() + options.items())
+    return self.conn._get(self.__document_type_search_path(engine_id, document_type_id), data=full_query)
+
   def suggest(self, engine_id, query, options={}):
     query_string = {'q': query}
     full_query = dict(query_string.items() + options.items())
@@ -79,6 +84,7 @@ class Client(object):
   def __engine_path(self,engine_id): return 'engines/%s' % (engine_id)
   def __document_type_path(self, engine_id, document_type_id): return '%s/document_types/%s' % (self.__engine_path(engine_id), document_type_id)
   def __document_types_path(self, engine_id): return '%s/document_types' % (self.__engine_path(engine_id))
+  def __document_type_search_path(self, engine_id, document_type_id): return '%s/search' % (self.__document_type_path(engine_id, document_type_id))
   def __document_path(self, engine_id, document_type_id, document_id): return '%s/documents/%s' % (self.__document_type_path(engine_id, document_type_id), document_id)
   def __documents_path(self, engine_id, document_type_id): return '%s/documents' % (self.__document_type_path(engine_id, document_type_id))
 
