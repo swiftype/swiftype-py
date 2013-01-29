@@ -87,8 +87,25 @@ class Client(object):
     return self.conn._get(self.__analytics_path(engine_id) + '/autoselects', params)
 
   def analytics_top_queries(self, engine_id, page=None, per_page=None):
-    params = dict((k,v) for k,v in {'page': page, 'per_page': per_page}.iteritems() if v is not None)
-    return self.conn._get(self.__analytics_path(engine_id) + '/top_queries', params)
+    return self.conn._get(self.__analytics_path(engine_id) + '/top_queries', self.__pagination_params(page, per_page))
+
+  def domains(self, engine_id):
+    return self.conn._get(self.__domains_path(engine_id))
+
+  def domain(self, engine_id, domain_id):
+    return self.conn._get(self.__domain_path(engine_id, domain_id))
+
+  def create_domain(self, engine_id, url):
+    return self.conn._post(self.__domains_path(engine_id), data={'domain': {'submitted_url': url}})
+
+  def destroy_domain(self, engine_id, domain_id):
+    return self.conn._delete(self.__domain_path(engine_id, domain_id))
+
+  def recrawl_domain(self, engine_id, domain_id):
+    return self.conn._put(self.__domain_path(engine_id, domain_id) + '/recrawl')
+
+  def crawl_url(self, engine_id, domain_id, url):
+    return self.conn._put(self.__domain_path(engine_id, domain_id) + '/crawl_url', data={'url': url})
 
   def __search_path(self, engine_id): return 'engines/%s/search' % (engine_id)
   def __suggest_path(self, engine_id): return 'engines/%s/suggest' % (engine_id)
@@ -100,6 +117,11 @@ class Client(object):
   def __document_path(self, engine_id, document_type_id, document_id): return '%s/documents/%s' % (self.__document_type_path(engine_id, document_type_id), document_id)
   def __documents_path(self, engine_id, document_type_id): return '%s/documents' % (self.__document_type_path(engine_id, document_type_id))
   def __analytics_path(self, engine_id): return '%s/analytics' % (self.__engine_path(engine_id))
+  def __domain_path(self, engine_id, domain_id): return '%s/domains/%s' % (self.__engine_path(engine_id), domain_id)
+  def __domains_path(self, engine_id): return '%s/domains' % (self.__engine_path(engine_id))
+
+  def __pagination_params(self, page, per_page):
+    return dict((k,v) for k,v in {'page': page, 'per_page': per_page}.iteritems() if v is not None)
 
 class HttpException(Exception):
     def __init__(self, status, msg):
