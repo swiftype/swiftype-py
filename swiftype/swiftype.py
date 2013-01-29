@@ -16,8 +16,11 @@ class Client(object):
   def __init__(self, username=None, password=None, api_key=None, host=DEFAULT_API_HOST):
       self.conn = Connection(username=username, password=password, api_key=api_key, host=host, base_path=DEFAULT_API_BASE_PATH)
 
-  def engines(self):
-    return self.conn._get(self.__engines_path())
+  def engines(self, page=None, per_page=None):
+    return self.conn._get(self.__engines_path(), self.__pagination_params(page, per_page))
+
+  def engine(self, engine_id):
+    return self.conn._get(self.__engine_path(engine_id))
 
   def create_engine(self, engine_id):
     engine = {'engine': {'name': engine_id }}
@@ -26,8 +29,11 @@ class Client(object):
   def destroy_engine(self, engine_id):
     return self.conn._delete(self.__engine_path(engine_id))
 
-  def document_types(self, engine_id):
-    return self.conn._get(self.__document_types_path(engine_id))
+  def document_types(self, engine_id, page=None, per_page=None):
+    return self.conn._get(self.__document_types_path(engine_id), self.__pagination_params(page, per_page))
+
+  def document_type(self, engine_id, document_type_id):
+    return self.conn._get(self.__document_type_path(engine_id, document_type_id))
 
   def create_document_type(self, engine_id, document_type_id):
     document_type = {'document_type': {'name': document_type_id }}
@@ -36,8 +42,11 @@ class Client(object):
   def destroy_document_type(self, engine_id, document_type_id):
     return self.conn._delete(self.__document_type_path(engine_id, document_type_id))
 
-  def documents(self, engine_id, document_type_id):
-    return self.conn._get(self.__documents_path(engine_id, document_type_id))
+  def documents(self, engine_id, document_type_id, page=None, per_page=None):
+    return self.conn._get(self.__documents_path(engine_id, document_type_id), self.__pagination_params(page, per_page))
+
+  def document(self, engine_id, document_type_id, document_id):
+    return self.conn._get(self.__document_path(engine_id, document_type_id, document_id))
 
   def create_document(self, engine_id, document_type_id, document={}):
     return self.conn._post(self.__documents_path(engine_id, document_type_id), data={'document':document})
