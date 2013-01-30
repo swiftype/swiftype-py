@@ -87,6 +87,11 @@ class Client(object):
     full_query = dict(query_string.items() + options.items())
     return self.conn._get(self.__suggest_path(engine_id), data=full_query)
 
+  def suggest_document_type(self, engine_id, document_type_id, query, options={}):
+    query_string = {'q': query}
+    full_query = dict(query_string.items() + options.items())
+    return self.conn._get(self.__document_type_suggest_path(engine_id, document_type_id), data=full_query)
+
   def analytics_searches(self, engine_id, start_date=None, end_date=None):
     params = dict((k,v) for k,v in {'start_date': start_date, 'end_date': end_date}.iteritems() if v is not None)
     return self.conn._get(self.__analytics_path(engine_id) + '/searches', params)
@@ -123,6 +128,7 @@ class Client(object):
   def __document_type_path(self, engine_id, document_type_id): return '%s/document_types/%s' % (self.__engine_path(engine_id), document_type_id)
   def __document_types_path(self, engine_id): return '%s/document_types' % (self.__engine_path(engine_id))
   def __document_type_search_path(self, engine_id, document_type_id): return '%s/search' % (self.__document_type_path(engine_id, document_type_id))
+  def __document_type_suggest_path(self, engine_id, document_type_id): return '%s/suggest' % (self.__document_type_path(engine_id, document_type_id))
   def __document_path(self, engine_id, document_type_id, document_id): return '%s/documents/%s' % (self.__document_type_path(engine_id, document_type_id), document_id)
   def __documents_path(self, engine_id, document_type_id): return '%s/documents' % (self.__document_type_path(engine_id, document_type_id))
   def __analytics_path(self, engine_id): return '%s/analytics' % (self.__engine_path(engine_id))
