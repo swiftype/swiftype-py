@@ -170,6 +170,8 @@ class Connection(object):
     headers = {}
     headers['User-Agent'] = USER_AGENT
     headers['Content-Type'] = 'application/json'
+    if method == 'PUT' and len(data) == 0:
+      headers['Content-Length'] = 0
 
     if self.__username is not None and self.__password is not None:
       credentials = "%s:%s" % (self.__username, self.__password)
