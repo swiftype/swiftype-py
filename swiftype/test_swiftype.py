@@ -15,7 +15,7 @@ class TestClientFunctions(unittest.TestCase):
         self.document_type = 'doctype'
 
     def test_engines(self):
-        self.__is_expected_collection(self.client.engines, 200, 10, {'id': '1'})
+        self.__is_expected_collection(self.client.engines, 200, 2, {'id': '1'})
 
     def test_engine(self):
         slug = self.client.engine(self.engine)['body']['slug']
@@ -30,7 +30,7 @@ class TestClientFunctions(unittest.TestCase):
         self.assertEqual(response['status'], 204)
 
     def test_document_types(self):
-        self.__is_expected_collection(self.client.document_types, 200, 3, {'slug': 'doctype1'}, self.engine)
+        self.__is_expected_collection(self.client.document_types, 200, 2, {'slug': 'doctype1'}, self.engine)
 
     def test_document_type(self):
         self.__is_expected_result(self.client.document_type, 200, {'slug': self.document_type}, self.engine, self.document_type)
@@ -44,7 +44,7 @@ class TestClientFunctions(unittest.TestCase):
         self.assertEqual(response['status'], 204)
 
     def test_documents(self):
-        self.__is_expected_collection(self.client.documents, 200, 25, {'external_id': '1'}, self.engine, self.document_type)
+        self.__is_expected_collection(self.client.documents, 200, 2, {'external_id': '1'}, self.engine, self.document_type)
 
     def test_document(self):
         external_id = '1'
@@ -157,10 +157,10 @@ class TestClientFunctions(unittest.TestCase):
         for k,v in expected_values.iteritems():
             self.assertEqual(response['body'][k], v)
 
-    def __is_expected_collection(self, request, status_code, min_body_length, expected_values, *args):
+    def __is_expected_collection(self, request, status_code, collection_length, expected_values, *args):
         response = request(*args)
         self.assertEqual(response['status'], status_code)
-        self.assertTrue(len(response['body']), min_body_length)
+        self.assertEqual(len(response['body']), collection_length)
         for k,v in expected_values.iteritems():
             self.assertEqual(len([item for item in response['body'] if item[k] == v]), 1)
 
