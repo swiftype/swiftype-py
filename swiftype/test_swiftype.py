@@ -127,6 +127,11 @@ class TestClientFunctions(unittest.TestCase):
         domain = self.client.domain(self.engine, domain_id)['body']
         self.assertEqual(domain['id'], domain_id)
 
+    def test_create_domain(self):
+        url = 'http://www.example.com'
+        domain_url = self.client.create_domain(self.engine, url)['body']['submitted_url']
+        self.assertEqual(domain_url, url)
+
     def test_destroy_domain(self):
         status = self.client.destroy_domain(self.engine, 'domain_id')['status']
         self.assertEqual(status, 204)
@@ -141,11 +146,6 @@ class TestClientFunctions(unittest.TestCase):
         url = 'http://www.example.com'
         crawled_url = self.client.crawl_url(self.engine, domain_id, url)['body']['url']
         self.assertEqual(crawled_url, url)
-
-    def test_create_domain(self):
-        url = 'http://www.example.com'
-        domain_url = self.client.create_domain(self.engine, url)['body']['submitted_url']
-        self.assertEqual(domain_url, url)
 
     def __is_expected_search_result(self, request, document_type_count, args=[]):
         response = request(self.engine, *(args + ['*']))
