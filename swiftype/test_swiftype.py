@@ -46,6 +46,9 @@ class TestClientFunctions(unittest.TestCase):
     def test_documents(self):
         self.__is_expected_collection(self.client.documents, 200, 2, {'external_id': '1'}, self.engine, self.document_type)
 
+    def test_documents_pagination(self):
+        self.__is_expected_collection(self.client.documents, 200, 2, {'external_id': '1'}, self.engine, self.document_type, 2, 10)
+
     def test_document(self):
         external_id = '1'
         id = self.client.document(self.engine, self.document_type, external_id)['body']['external_id']
@@ -95,28 +98,60 @@ class TestClientFunctions(unittest.TestCase):
         self.assertTrue(total_count > 1)
         self.__is_expected_search_result(self.client.search, total_count)
 
+    def test_search_with_options(self):
+        total_count = len(self.client.document_types(self.engine)['body'])
+        self.assertTrue(total_count > 1)
+        response = self.client.search(self.engine, 'query', {'page': 2})
+        self.assertEqual(len(response['body']['records']), total_count)
+
     def test_search_document_type(self):
         self.__is_expected_search_result(self.client.search_document_type, 1, [self.document_type])
+
+    def test_search_document_type(self):
+        response = self.client.search_document_type(self.engine, self.document_type, "query", {'page': 2})
+        self.assertEqual(len(response['body']['records']), 1)
 
     def test_suggest(self):
         total_count = len(self.client.document_types(self.engine)['body'])
         self.assertTrue(total_count > 1)
         self.__is_expected_search_result(self.client.suggest, total_count)
 
+    def test_suggest_with_options(self):
+        total_count = len(self.client.document_types(self.engine)['body'])
+        self.assertTrue(total_count > 1)
+        response = self.client.suggest(self.engine, 'query', {'page': 2})
+        self.assertEqual(len(response['body']['records']), total_count)
+
     def test_suggest_document_type(self):
         self.__is_expected_search_result(self.client.suggest_document_type, 1, [self.document_type])
+
+    def test_suggest_document_type_with_options(self):
+        response = self.client.suggest_document_type(self.engine, self.document_type, "query", {'page': 2})
+        self.assertEqual(len(response['body']['records']), 1)
 
     def test_analytics_searches(self):
         searches = self.client.analytics_searches(self.engine)['body']
         self.assertTrue(len(searches) == 1)
 
+    def test_analytics_searches_pagination(self):
+        searches = self.client.analytics_searches(self.engine, '2013-01-01', '2013-02-01')['body']
+        self.assertTrue(len(searches) == 0)
+
     def test_analytics_autoselects(self):
         autoselects = self.client.analytics_autoselects(self.engine)['body']
         self.assertTrue(len(autoselects) == 1)
 
+    def test_analytics_autoselects_pagination(self):
+        autoselects = self.client.analytics_autoselects(self.engine, '2013-01-01', '2013-02-01')['body']
+        self.assertTrue(len(autoselects) == 0)
+
     def test_analytics_top_queries(self):
         top_queries = self.client.analytics_top_queries(self.engine)['body']
         self.assertTrue(len(top_queries) == 2)
+
+    def test_analytics_top_queries(self):
+        top_queries = self.client.analytics_top_queries(self.engine, '2013-01-01', '2013-02-01')['body']
+        self.assertTrue(len(top_queries) == 0)
 
     def test_domains(self):
         domains = self.client.domains(self.engine)['body']
