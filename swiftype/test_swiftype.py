@@ -107,7 +107,7 @@ class TestClientFunctions(unittest.TestCase):
     def test_search_document_type(self):
         self.__is_expected_search_result(self.client.search_document_type, 1, [self.document_type])
 
-    def test_search_document_type(self):
+    def test_search_document_type_with_options(self):
         response = self.client.search_document_type(self.engine, self.document_type, "query", {'page': 2})
         self.assertEqual(len(response['body']['records']), 1)
 
@@ -149,8 +149,8 @@ class TestClientFunctions(unittest.TestCase):
         top_queries = self.client.analytics_top_queries(self.engine)['body']
         self.assertTrue(len(top_queries) == 2)
 
-    def test_analytics_top_queries(self):
-        top_queries = self.client.analytics_top_queries(self.engine, '2013-01-01', '2013-02-01')['body']
+    def test_analytics_top_queries_pagination(self):
+        top_queries = self.client.analytics_top_queries(self.engine, 2, 10)['body']
         self.assertTrue(len(top_queries) == 0)
 
     def test_domains(self):
