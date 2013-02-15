@@ -103,6 +103,14 @@ class Client(object):
   def analytics_top_queries(self, engine_id, page=None, per_page=None):
     return self.conn._get(self.__analytics_path(engine_id) + '/top_queries', self.__pagination_params(page, per_page))
 
+  def analytics_top_queries_in_range(self, engine_id, start_date=None, end_date=None):
+    params = dict((k,v) for k,v in {'start_date': start_date, 'end_date': end_date}.iteritems() if v is not None)
+    return self.conn._get(self.__analytics_path(engine_id) + '/top_queries_in_range', params)
+
+  def analytics_top_no_result_queries(self, engine_id, start_date=None, end_date=None):
+    params = dict((k,v) for k,v in {'start_date': start_date, 'end_date': end_date}.iteritems() if v is not None)
+    return self.conn._get(self.__analytics_path(engine_id) + '/top_no_result_queries_in_range', params)
+
   def domains(self, engine_id):
     return self.conn._get(self.__domains_path(engine_id))
 

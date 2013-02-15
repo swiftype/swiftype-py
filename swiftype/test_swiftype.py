@@ -153,6 +153,18 @@ class TestClientFunctions(unittest.TestCase):
         top_queries = self.client.analytics_top_queries(self.engine, 2, 10)['body']
         self.assertTrue(len(top_queries) == 0)
 
+    def test_analytics_top_queries_in_range(self):
+        top_queries = self.client.analytics_top_queries_in_range(self.engine, '2013-01-01', '2013-02-01')['body']
+        self.assertTrue(len(top_queries) == 1)
+
+    def test_analytics_top_no_result_queries(self):
+        autoselects = self.client.analytics_top_no_result_queries(self.engine)['body']
+        self.assertTrue(len(autoselects) == 2)
+
+    def test_analytics_top_no_result_queries_with_dates(self):
+        autoselects = self.client.analytics_top_no_result_queries(self.engine, '2013-01-01', '2013-02-01')['body']
+        self.assertTrue(len(autoselects) == 0)
+
     def test_domains(self):
         domains = self.client.domains(self.engine)['body']
         self.assertTrue(len(domains) == 2)
