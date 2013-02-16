@@ -296,3 +296,15 @@ If you are interested in the top queries for your `Engine` you can use:
 To see more top queries you can paginate through them using:
 
 	top_queries = client.analytics_top_queries('youtube', page=2)
+
+Or you can get the top queries in a specific date range:
+
+	top_queries = client.analytics_top_queries_in_range('youtube', '2013-01-01', '2013-02-01')
+
+If you want to improve you search results, you should always have a look at search queries, that return no results and perhaps add some Documents that match for this query or use our pining feature to add Documents for this query:
+
+	top_no_result_queries = client.analytics_top_no_result_queries('youtube')
+
+You can also specify a date range for no result queries:
+
+	top_no_result_queries = client.analytics_top_no_result_queries('youtube', '2013-01-01', '2013-02-01')
