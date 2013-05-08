@@ -9,7 +9,7 @@ Swiftype API Client for Python
 
 2. Configure your client:
 
-	    import swiftype
+	  	from swiftype import swiftype
 		client = swiftype.Client(api_key='YOUR_API_KEY')
 
 3. Create an `Engine` named e.g. `youtube`:
