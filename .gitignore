@@ -1,1 +1,5 @@
+/build
+/dist
+/swiftype.egg-info
+*.egg
 *.py[cod]
