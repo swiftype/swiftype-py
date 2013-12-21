@@ -3,6 +3,16 @@ Swiftype API Client for Python
 
 # Quickstart
 
+## Installation
+
+You can install the latest version of the Swiftype client using `pip`:
+
+	pip install swiftype
+		
+To install locally, clone this repository, `cd` into the directory and run:
+
+	python setup.py install
+
 ## Setup
 
 1. Create an account at [Swiftype](https://swiftype.com/) and get your API key from your [Account Settings](https://swiftype.com/user/edit).
