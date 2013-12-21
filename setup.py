@@ -9,6 +9,9 @@ setup(
     name = 'swiftype',
     version = VERSION,
     description = 'Swiftype API Client for Python',
+    author = 'Swiftype',
+    author_email = 'team@swiftype.com',
+    url = 'https://swiftype.com/',
     packages = find_packages(),
     install_requires = ["anyjson"],
     classifiers = [
