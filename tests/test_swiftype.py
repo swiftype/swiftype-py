@@ -1,4 +1,4 @@
-import swiftype
+from swiftype import swiftype
 import os
 import time
 import unittest
