@@ -3,3 +3,4 @@
 /swiftype.egg-info
 *.egg
 *.py[cod]
+.DS_Store
