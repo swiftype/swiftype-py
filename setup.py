@@ -14,6 +14,7 @@ setup(
     url = 'https://swiftype.com/',
     packages = find_packages(),
     install_requires = ["anyjson"],
+    test_suite='nose.collector',
     classifiers = [
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
