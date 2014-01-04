@@ -1,0 +1,17 @@
+- request: !!python/object:vcr.request.Request
+    body: '{"q": "*"}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
+      - !!python/tuple [Content-Type, application/json]
+    host: localhost
+    method: GET
+    path: /api/v1/engines/api-test/document_types/books/search.json?auth_token=a-test-api-key
+    port: 3000
+    protocol: http
+  response:
+    body: {string: '{"records":{"books":[]},"info":{"books":{"query":"*","current_page":1,"num_pages":0,"per_page":20,"total_result_count":0,"facets":{}}},"errors":{}}'}
+    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
+      content-type: application/json; charset=utf-8, etag: '"aa7211328ce157794f5c3e79805377e2"',
+      server: thin 1.5.0 codename Knife, x-request-id: 95e4164f8ca8502c868655c3fe698e5e,
+      x-runtime: '0.156261', x-ua-compatible: IE=Edge}
+    status: {code: 200, message: OK}

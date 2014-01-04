@@ -1,0 +1,17 @@
+- request: !!python/object:vcr.request.Request
+    body: '{"documents": [{"external_id": "1"}, {"external_id": "2"}]}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
+      - !!python/tuple [Content-Type, application/json]
+    host: localhost
+    method: POST
+    path: /api/v1/engines/api-test/document_types/books/documents/bulk_create_or_update.json?auth_token=a-test-api-key
+    port: 3000
+    protocol: http
+  response:
+    body: {string: '[true,true]'}
+    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
+      content-type: application/json; charset=utf-8, etag: '"bb009c6dcb5c622766ad5aa1ea1562d9"',
+      server: thin 1.5.0 codename Knife, x-request-id: f00d688280159b50dbe1501c724c9258,
+      x-runtime: '0.040930', x-ua-compatible: IE=Edge}
+    status: {code: 200, message: OK}

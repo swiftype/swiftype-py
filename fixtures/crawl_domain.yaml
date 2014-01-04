@@ -1,0 +1,17 @@
+- request: !!python/object:vcr.request.Request
+    body: '{"url": "http://crawler-demo-site.herokuapp.com/2012/01/01/first-post.html"}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
+      - !!python/tuple [Content-Type, application/json]
+    host: localhost
+    method: PUT
+    path: /api/v1/engines/crawler-demo/domains/52c754fb3ae7406fd3000001/crawl_url.json?auth_token=a-test-api-key
+    port: 3000
+    protocol: http
+  response:
+    body: {string: '{"external_id":"9508ace2e1ba669854eb49fbe9429952ff1a6d4c","url":"http://crawler-demo-site.herokuapp.com/2012/01/01/first-post.html"}'}
+    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
+      content-type: application/json; charset=utf-8, etag: '"dc3e7df6ad36f807472e018fd1e7baeb"',
+      server: thin 1.5.0 codename Knife, x-request-id: b47b431d9d6c55cbaa30a6daa98ed593,
+      x-runtime: '0.023079', x-ua-compatible: IE=Edge}
+    status: {code: 200, message: OK}

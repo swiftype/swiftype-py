@@ -1,0 +1,17 @@
+- request: !!python/object:vcr.request.Request
+    body: ''
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
+      - !!python/tuple [Content-Type, application/json]
+    host: localhost
+    method: GET
+    path: /api/v1/engines/api-test.json?auth_token=a-test-api-key
+    port: 3000
+    protocol: http
+  response:
+    body: {string: '{"name":"api test ","slug":"api-test","key":"k5zFUMeDxn2uFaqzGDrS","id":"52c73e443ae7403ec900001e","_id":"52c73e443ae7403ec900001e","updated_at":"2014-01-03T23:35:21Z","document_count":2}'}
+    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
+      content-type: application/json; charset=utf-8, etag: '"3fdf8ffe743426141b800140db849eb6"',
+      server: thin 1.5.0 codename Knife, x-request-id: c3a3d2406a2644539e1de9592ca9b39f,
+      x-runtime: '0.023034', x-ua-compatible: IE=Edge}
+    status: {code: 200, message: OK}

@@ -1,0 +1,17 @@
+- request: !!python/object:vcr.request.Request
+    body: ''
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
+      - !!python/tuple [Content-Type, application/json]
+    host: localhost
+    method: GET
+    path: /api/v1/engines/api-test/analytics/top_no_result_queries_in_range.json?auth_token=a-test-api-key
+    port: 3000
+    protocol: http
+  response:
+    body: {string: '[["foo",2],["bar",1]]'}
+    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
+      content-type: application/json; charset=utf-8, etag: '"d751713988987e9331980363e24189ce"',
+      server: thin 1.5.0 codename Knife, x-request-id: 4ba743d24f32e8bf5f2c24bc091ae320,
+      x-runtime: '0.022363', x-ua-compatible: IE=Edge}
+    status: {code: 200, message: OK}

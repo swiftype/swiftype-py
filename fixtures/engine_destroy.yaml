@@ -1,0 +1,16 @@
+- request: !!python/object:vcr.request.Request
+    body: ''
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
+      - !!python/tuple [Content-Type, application/json]
+    host: localhost
+    method: DELETE
+    path: /api/v1/engines/myengine.json?auth_token=a-test-api-key
+    port: 3000
+    protocol: http
+  response:
+    body: {string: ''}
+    headers: {cache-control: no-cache, connection: close, server: thin 1.5.0 codename
+        Knife, x-request-id: eebb3799708667eaab665af3d945ad19, x-runtime: '0.026874',
+      x-ua-compatible: IE=Edge}
+    status: {code: 204, message: No Content}

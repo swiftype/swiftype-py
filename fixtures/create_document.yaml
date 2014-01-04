@@ -1,0 +1,17 @@
+- request: !!python/object:vcr.request.Request
+    body: '{"document": {"external_id": "doc_id"}}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
+      - !!python/tuple [Content-Type, application/json]
+    host: localhost
+    method: POST
+    path: /api/v1/engines/api-test/document_types/books/documents.json?auth_token=a-test-api-key
+    port: 3000
+    protocol: http
+  response:
+    body: {string: '{"external_id":"doc_id","engine_id":"52c73e443ae7403ec900001e","document_type_id":"52c742b63ae7401cb6000004","id":"52cb1f823ae7403ec900003e","_id":"52cb1f823ae7403ec900003e","updated_at":"2014-01-06T21:26:26Z"}'}
+    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
+      content-type: application/json; charset=utf-8, etag: '"72a0014aa4dc2dff2424d2e4b24a58f5"',
+      server: thin 1.5.0 codename Knife, x-request-id: 79febce38457cf0ea6d796dc98572ebd,
+      x-runtime: '0.174664', x-ua-compatible: IE=Edge}
+    status: {code: 200, message: OK}

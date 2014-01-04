@@ -1,0 +1,34 @@
+- request: !!python/object:vcr.request.Request
+    body: ''
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
+      - !!python/tuple [Content-Type, application/json]
+    host: localhost
+    method: GET
+    path: /api/v1/engines/api-test/document_types.json?auth_token=a-test-api-key
+    port: 3000
+    protocol: http
+  response:
+    body: {string: '[{"id":"52c73e443ae7403ec900001d","name":"responses","slug":"responses","engine_id":"52c73e443ae7403ec900001e","updated_at":"2014-01-03T22:48:36Z","document_count":0,"field_mapping":{}},{"id":"52c742b63ae7401cb6000004","name":"books","slug":"books","engine_id":"52c73e443ae7403ec900001e","updated_at":"2014-01-03T23:43:03Z","document_count":2,"field_mapping":{"external_id":"enum","updated_at":"date","title":"string","author":"string","genre":"enum"}}]'}
+    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
+      content-type: application/json; charset=utf-8, etag: '"c3aaeeed9be8d9f4c5816da1aa1d080b"',
+      server: thin 1.5.0 codename Knife, x-request-id: 4dcd0e5eac07de6fef7ae88f1a37369d,
+      x-runtime: '0.021395', x-ua-compatible: IE=Edge}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: '{"q": "*"}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
+      - !!python/tuple [Content-Type, application/json]
+    host: localhost
+    method: GET
+    path: /api/v1/engines/api-test/suggest.json?auth_token=a-test-api-key
+    port: 3000
+    protocol: http
+  response:
+    body: {string: '{"record_count":0,"records":{"responses":[],"books":[]},"info":{},"errors":{}}'}
+    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
+      content-type: application/json; charset=utf-8, etag: '"454b01de630ec23114367c9ddff47749"',
+      server: thin 1.5.0 codename Knife, x-request-id: 590f5bb1abb595bb692df16fcf3e449d,
+      x-runtime: '0.026560', x-ua-compatible: IE=Edge}
+    status: {code: 200, message: OK}
