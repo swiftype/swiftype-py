@@ -1,5 +1,6 @@
 Swiftype API Client for Python
-===============================
+
+[![Build Status](https://travis-ci.org/swiftype/swiftype-py.png?branch=master)](https://travis-ci.org/swiftype/swiftype-py)
 
 # Quickstart
 
