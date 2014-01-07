@@ -4,3 +4,4 @@
 *.egg
 *.py[cod]
 .DS_Store
+.python-version
