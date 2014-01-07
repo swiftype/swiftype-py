@@ -267,5 +267,40 @@ class TestClientFunctions(unittest.TestCase):
         name = name if name else self.__time_name()
         return
 
+class TestPlatformUsers(unittest.TestCase):
+
+    def setUp(self):
+        try:
+            api_key = os.environ['API_KEY']
+        except:
+            api_key = "a-test-api-key"
+
+        client_id = 'bd779af52ce7c26330a2c8a9216caf3f84906db6893788bdb4bd27549ca7bbbf'
+        client_secret = 'a62962938bbe76194bbdc4e3cbfcb6708283b47614594610c71240f81c17af6f'
+        self.client = swiftype.Client(api_key=api_key, client_id=client_id, client_secret=client_secret, host='localhost:3000')
+
+    def test_users(self):
+        with vcr.use_cassette('fixtures/users.yaml'):
+            response = self.client.users()
+            self.assertEqual(response['status'], 200)
+            self.assertEqual(len(response['body']), 2)
+
+    def test_users_pagination(self):
+        with vcr.use_cassette('fixtures/users_pagination.yaml'):
+            response = self.client.users(page=2)
+            self.assertEqual(response['status'], 200)
+            self.assertEqual(len(response['body']), 0)
+
+    def test_user(self):
+        with vcr.use_cassette('fixtures/user.yaml'):
+            user_id = '12345'
+            response = self.client.user(user_id)
+            self.assertEqual(response['body']['id'], user_id)
+
+    def test_create_user(self):
+        with vcr.use_cassette('fixtures/create_user.yaml'):
+            response = self.client.create_user()
+            self.assertEqual(response['status'], 200)
+
 if __name__ == '__main__':
     unittest.main()

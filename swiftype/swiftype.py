@@ -13,7 +13,9 @@ DEFAULT_API_BASE_PATH = '/api/v1/'
 
 class Client(object):
 
-  def __init__(self, username=None, password=None, api_key=None, host=DEFAULT_API_HOST):
+  def __init__(self, username=None, password=None, api_key=None, client_id=None, client_secret=None, host=DEFAULT_API_HOST):
+      self.client_id = client_id
+      self.client_secret = client_secret
       self.conn = Connection(username=username, password=password, api_key=api_key, host=host, base_path=DEFAULT_API_BASE_PATH)
 
   def engines(self, page=None, per_page=None):
@@ -129,6 +131,18 @@ class Client(object):
   def crawl_url(self, engine_id, domain_id, url):
     return self.conn._put(self.__domain_path(engine_id, domain_id) + '/crawl_url', data={'url': url})
 
+  def users(self, page=None, per_page=None):
+    params = {'client_id': self.client_id, 'client_secret': self.client_secret}
+    return self.conn._get(self.__users_path(), dict(params.items() + self.__pagination_params(page, per_page).items()))
+
+  def user(self, user_id):
+    params = {'client_id': self.client_id, 'client_secret': self.client_secret}
+    return self.conn._get(self.__user_path(user_id), params)
+
+  def create_user(self):
+    params = {'client_id': self.client_id, 'client_secret': self.client_secret}
+    return self.conn._post(self.__users_path(), params)
+
   def __search_path(self, engine_id): return 'engines/%s/search' % (engine_id)
   def __suggest_path(self, engine_id): return 'engines/%s/suggest' % (engine_id)
   def __engines_path(self): return 'engines'
@@ -142,6 +156,8 @@ class Client(object):
   def __analytics_path(self, engine_id): return '%s/analytics' % (self.__engine_path(engine_id))
   def __domain_path(self, engine_id, domain_id): return '%s/domains/%s' % (self.__engine_path(engine_id), domain_id)
   def __domains_path(self, engine_id): return '%s/domains' % (self.__engine_path(engine_id))
+  def __users_path(self): return 'users'
+  def __user_path(self, user_id): return 'users/%s' % (user_id)
 
   def __pagination_params(self, page, per_page):
     return dict((k,v) for k,v in {'page': page, 'per_page': per_page}.iteritems() if v is not None)

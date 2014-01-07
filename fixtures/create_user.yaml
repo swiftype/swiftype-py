@@ -1,0 +1,17 @@
+- request: !!python/object:vcr.request.Request
+    body: ''
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
+      - !!python/tuple [Content-Type, application/json]
+    host: localhost
+    method: POST
+    path: /api/v1/users.json?client_secret=a62962938bbe76194bbdc4e3cbfcb6708283b47614594610c71240f81c17af6f&auth_token=a-test-api-key&client_id=bd779af52ce7c26330a2c8a9216caf3f84906db6893788bdb4bd27549ca7bbbf
+    port: 3000
+    protocol: http
+  response:
+    body: {string: '{"id":"123456","access_token":"ab169f3343724916d2ccba5e748bdedd6cbf7c06e7d8952530dfa82e1b1052f3"}'}
+    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
+      content-type: application/json; charset=utf-8, etag: '"04764ec2f724ddb8cea4bce79acd93e0"',
+      server: thin 1.5.0 codename Knife, x-request-id: 2237f34063dc0d5802919b5472bcf798,
+      x-runtime: '0.069650', x-ua-compatible: IE=Edge}
+    status: {code: 200, message: OK}
