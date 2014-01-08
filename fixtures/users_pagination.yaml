@@ -5,7 +5,7 @@
       - !!python/tuple [Content-Type, application/json]
     host: localhost
     method: GET
-    path: /api/v1/users.json?client_secret=a62962938bbe76194bbdc4e3cbfcb6708283b47614594610c71240f81c17af6f&auth_token=a-test-api-key&page=2&client_id=bd779af52ce7c26330a2c8a9216caf3f84906db6893788bdb4bd27549ca7bbbf
+    path: /api/v1/users.json?client_secret=4441879b5e2a9c3271f5b1a4bc223b715f091e5ed20fe75d1352e1290c7a6dfb&auth_token=a-test-api-key&page=2&client_id=3e4fd842fc99aecb4dc50e5b88a186c1e206ddd516cdd336da3622c4afd7e2e9
     port: 3000
     protocol: http
   response:

@@ -3,6 +3,7 @@ import os
 import time
 import unittest
 import vcr
+from mock import Mock
 
 class TestClientFunctions(unittest.TestCase):
 
@@ -275,8 +276,8 @@ class TestPlatformUsers(unittest.TestCase):
         except:
             api_key = "a-test-api-key"
 
-        client_id = 'bd779af52ce7c26330a2c8a9216caf3f84906db6893788bdb4bd27549ca7bbbf'
-        client_secret = 'a62962938bbe76194bbdc4e3cbfcb6708283b47614594610c71240f81c17af6f'
+        client_id = '3e4fd842fc99aecb4dc50e5b88a186c1e206ddd516cdd336da3622c4afd7e2e9'
+        client_secret = '4441879b5e2a9c3271f5b1a4bc223b715f091e5ed20fe75d1352e1290c7a6dfb'
         self.client = swiftype.Client(api_key=api_key, client_id=client_id, client_secret=client_secret, host='localhost:3000')
 
     def test_users(self):
@@ -301,6 +302,18 @@ class TestPlatformUsers(unittest.TestCase):
         with vcr.use_cassette('fixtures/create_user.yaml'):
             response = self.client.create_user()
             self.assertEqual(response['status'], 200)
+
+    def test_sso_token(self):
+        timestamp = 1379382520
+        user_id = '5064a7de2ed960e715000276'
+        token = self.client._sso_token(user_id, timestamp)
+        self.assertEqual(token, '81033d182ad51f231cc9cda9fb24f2298a411437')
+
+    def test_sso_url(self):
+        self.client._get_timestamp = Mock(return_value=1379382520)
+        user_id = '5064a7de2ed960e715000276'
+        url = self.client.sso_url(user_id)
+        self.assertEqual(url, 'https://swiftype.com/sso?timestamp=1379382520&token=81033d182ad51f231cc9cda9fb24f2298a411437&user_id=5064a7de2ed960e715000276&client_id=3e4fd842fc99aecb4dc50e5b88a186c1e206ddd516cdd336da3622c4afd7e2e9')
 
 class TestPlatformResources(unittest.TestCase):
 

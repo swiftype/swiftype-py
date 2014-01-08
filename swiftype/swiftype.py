@@ -3,7 +3,8 @@ import httplib
 import urllib
 import urlparse
 import base64
-import datetime
+import time
+import hashlib
 
 from version import VERSION
 
@@ -142,6 +143,17 @@ class Client(object):
   def create_user(self):
     params = {'client_id': self.client_id, 'client_secret': self.client_secret}
     return self.conn._post(self.__users_path(), params)
+
+  def sso_url(self, user_id):
+    timestamp = self._get_timestamp()
+    params = {'user_id': user_id, 'client_id': self.client_id, 'timestamp': timestamp, 'token': self._sso_token(user_id, timestamp)}
+    return urlparse.urlunparse(('https', 'swiftype.com', '/sso', '', urllib.urlencode(params), ''))
+
+  def _sso_token(self, user_id, timestamp):
+    return hashlib.sha1('%s:%s:%s' % (user_id, self.client_secret, timestamp)).hexdigest()
+
+  def _get_timestamp(self):
+    return int(time.time())
 
   def __search_path(self, engine_id): return 'engines/%s/search' % (engine_id)
   def __suggest_path(self, engine_id): return 'engines/%s/suggest' % (engine_id)
