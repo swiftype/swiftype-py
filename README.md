@@ -1,4 +1,4 @@
-Swiftype API Client for Python
+# Swiftype API Client for Python
 
 [![Build Status](https://travis-ci.org/swiftype/swiftype-py.png?branch=master)](https://travis-ci.org/swiftype/swiftype-py)
 
@@ -319,3 +319,35 @@ If you want to improve you search results, you should always have a look at sear
 You can also specify a date range for no result queries:
 
 	top_no_result_queries = client.analytics_top_no_result_queries('youtube', '2013-01-01', '2013-02-01')
+
+## Platform API
+
+If you've registered your service as a [Swiftype Platform Application](https://swiftype.com/documentation/users), you can use this library to create users and take actions on their behalf. (Learn more about the Platform API [here](https://swiftype.com/documentation/users).)
+
+First, create a client using your application's `client_id` and `client_secret`
+
+	platform_client = swiftype.Client(api_key='YOUR_API_KEY', client_id='YOUR_CLIENT_ID', client_secret='YOUR_CLIENT_SECRET')
+
+To retrieve a list of the users for your application (pass optional `page` and `per_page` arguments for pagination):
+
+	platform_client.users()
+
+To create a user that is managed by your application:
+
+	platform_client.create_user()
+
+You can also retrieve users by their ID:
+
+	platform_client.user(12345)
+
+To allow your users to access their Swiftype dashboard, route them to their unique SSO URL. This is generated using their user ID (note that this URL expires after 5 minutes, so the URL should be generated at the time the user is requesting access to their dashboard to avoid having to re-generate the URL):
+
+	platform_client.sso_url(12345)
+
+You can also create resources on behalf of a user. To do this, you'll need the user's `access_token`, which is returned when requesting a User resource.
+
+First, create a client with the user's `access_token` (note that you shouldn't pass an `api_key` here when creating the client, since you want the requests to take effect on the User's account):
+
+	user_client = swiftype.Client(access_token='MY_USERS_ACCESS_TOKEN')
+
+All of the same Engine APIs documented above will work with your new `user_client` object, but resources will be created on behalf of the User's account rather than your own.
