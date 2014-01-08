@@ -13,10 +13,10 @@ DEFAULT_API_BASE_PATH = '/api/v1/'
 
 class Client(object):
 
-  def __init__(self, username=None, password=None, api_key=None, client_id=None, client_secret=None, host=DEFAULT_API_HOST):
+  def __init__(self, username=None, password=None, api_key=None, access_token=None, client_id=None, client_secret=None, host=DEFAULT_API_HOST):
       self.client_id = client_id
       self.client_secret = client_secret
-      self.conn = Connection(username=username, password=password, api_key=api_key, host=host, base_path=DEFAULT_API_BASE_PATH)
+      self.conn = Connection(username=username, password=password, api_key=api_key, access_token=access_token, host=host, base_path=DEFAULT_API_BASE_PATH)
 
   def engines(self, page=None, per_page=None):
     return self.conn._get(self.__engines_path(), self.__pagination_params(page, per_page))
@@ -170,10 +170,11 @@ class HttpException(Exception):
 
 class Connection(object):
 
-  def __init__(self, username=None, password=None, api_key=None, host=None, base_path=None):
+  def __init__(self, username=None, password=None, api_key=None, access_token=None, host=None, base_path=None):
     self.__username = username
     self.__password = password
     self.__api_key = api_key
+    self.__access_token = access_token
     self.__host = host
     self.__base_path = base_path
 
@@ -190,7 +191,6 @@ class Connection(object):
     return self._request('PUT', path, params=params, data=data)
 
   def _request(self, method, path, params={}, data={}):
-
     headers = {}
     headers['User-Agent'] = USER_AGENT
     headers['Content-Type'] = 'application/json'
@@ -200,6 +200,9 @@ class Connection(object):
       base64_credentials = base64.encodestring(credentials)
       authorization = "Basic %s" % base64_credentials[:-1]
       headers['Authorization'] = authorization
+    elif self.__access_token is not None and self.__api_key is None:
+      params.pop('auth_token', None)
+      headers['Authorization'] = "Bearer %s" % self.__access_token
     elif self.__api_key is not None:
       params['auth_token'] = self.__api_key
     else:

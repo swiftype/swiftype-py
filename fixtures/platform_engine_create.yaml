@@ -1,0 +1,18 @@
+- request: !!python/object:vcr.request.Request
+    body: '{"engine": {"name": "myusersengine"}}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
+      - !!python/tuple [Authorization, Bearer 6cf7fbd297f00a8e3863a0595f55ff7d141cbef2fcbe00159d0f7403649b384e]
+      - !!python/tuple [Content-Type, application/json]
+    host: localhost
+    method: POST
+    path: /api/v1/engines.json
+    port: 3000
+    protocol: http
+  response:
+    body: {string: '{"name":"myusersengine","slug":"myusersengine","key":"wLDDEvF4GetXAkx6xiss","id":"52ccaa333ae740f4af00002b","_id":"52ccaa333ae740f4af00002b","updated_at":"2014-01-08T01:30:27Z","document_count":0}'}
+    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
+      content-type: application/json; charset=utf-8, etag: '"8240b4e5c212143eb3e570e548c4d8d5"',
+      server: thin 1.5.0 codename Knife, x-request-id: 7ba05f6eb9c0d05aad3ce4ca5b1d8598,
+      x-runtime: '0.146829', x-ua-compatible: IE=Edge}
+    status: {code: 200, message: OK}

@@ -1,0 +1,18 @@
+- request: !!python/object:vcr.request.Request
+    body: '{"document_type": {"name": "videos"}}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
+      - !!python/tuple [Authorization, Bearer 6cf7fbd297f00a8e3863a0595f55ff7d141cbef2fcbe00159d0f7403649b384e]
+      - !!python/tuple [Content-Type, application/json]
+    host: localhost
+    method: POST
+    path: /api/v1/engines/myusersengine/document_types.json
+    port: 3000
+    protocol: http
+  response:
+    body: {string: '{"id":"52cca4a43ae740f4af000024","name":"videos","slug":"videos","engine_id":"52cca3f13ae740f4af000023","updated_at":"2014-01-08T01:06:44Z","document_count":0,"field_mapping":{}}'}
+    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
+      content-type: application/json; charset=utf-8, etag: '"18cf4a2934702f8d1872273ee78b544c"',
+      server: thin 1.5.0 codename Knife, x-request-id: 5df4547c828f6c5f32852192d3fefe12,
+      x-runtime: '0.131149', x-ua-compatible: IE=Edge}
+    status: {code: 200, message: OK}

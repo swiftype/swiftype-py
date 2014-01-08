@@ -1,0 +1,18 @@
+- request: !!python/object:vcr.request.Request
+    body: '{"document": {"external_id": "doc_id"}}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
+      - !!python/tuple [Authorization, Bearer 6cf7fbd297f00a8e3863a0595f55ff7d141cbef2fcbe00159d0f7403649b384e]
+      - !!python/tuple [Content-Type, application/json]
+    host: localhost
+    method: POST
+    path: /api/v1/engines/myusersengine/document_types/videos/documents.json
+    port: 3000
+    protocol: http
+  response:
+    body: {string: '{"external_id":"doc_id","engine_id":"52cca3f13ae740f4af000023","document_type_id":"52cca4a43ae740f4af000024","id":"52cca54f3ae740f4af000026","_id":"52cca54f3ae740f4af000026","updated_at":"2014-01-08T01:09:35Z"}'}
+    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
+      content-type: application/json; charset=utf-8, etag: '"2f47ab1d3d64e1f401758e0c1adba376"',
+      server: thin 1.5.0 codename Knife, x-request-id: e3747b602f410044648906559a79ce4f,
+      x-runtime: '0.176010', x-ua-compatible: IE=Edge}
+    status: {code: 200, message: OK}

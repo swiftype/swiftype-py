@@ -302,5 +302,35 @@ class TestPlatformUsers(unittest.TestCase):
             response = self.client.create_user()
             self.assertEqual(response['status'], 200)
 
+class TestPlatformResources(unittest.TestCase):
+
+    def setUp(self):
+        access_token = '6cf7fbd297f00a8e3863a0595f55ff7d141cbef2fcbe00159d0f7403649b384e'
+        self.engine = 'myusersengine'
+        self.document_type = 'videos'
+        self.client = swiftype.Client(access_token=access_token, host='localhost:3000')
+
+    def test_platform_engine_create(self):
+        with vcr.use_cassette('fixtures/platform_engine_create.yaml'):
+            response = self.client.create_engine(self.engine)
+            self.assertEqual(response['body']['name'], self.engine)
+
+    def test_platform_create_document_type(self):
+        with vcr.use_cassette('fixtures/platform_create_document_type.yaml'):
+            response = self.client.create_document_type(self.engine, self.document_type)
+            self.assertEqual(response['body']['slug'], self.document_type)
+
+    def test_platform_create_document(self):
+        with vcr.use_cassette('fixtures/platform_create_document.yaml'):
+            doc_id = 'doc_id'
+            id = self.client.create_document(self.engine, self.document_type, {'external_id': doc_id})['body']['external_id']
+            self.assertEqual(id, doc_id)
+
+    def test_platform_create_documents(self):
+        with vcr.use_cassette('fixtures/platform_create_documents.yaml'):
+            docs = [{'external_id': 'doc_id1'}, {'external_id': 'doc_id2'}]
+            stati = self.client.create_documents(self.engine, self.document_type, docs)['body']
+            self.assertEqual(stati, [True, True])
+
 if __name__ == '__main__':
     unittest.main()

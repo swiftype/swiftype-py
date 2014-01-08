@@ -1,0 +1,18 @@
+- request: !!python/object:vcr.request.Request
+    body: '{"documents": [{"external_id": "doc_id1"}, {"external_id": "doc_id2"}]}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
+      - !!python/tuple [Authorization, Bearer 6cf7fbd297f00a8e3863a0595f55ff7d141cbef2fcbe00159d0f7403649b384e]
+      - !!python/tuple [Content-Type, application/json]
+    host: localhost
+    method: POST
+    path: /api/v1/engines/myusersengine/document_types/videos/documents/bulk_create.json
+    port: 3000
+    protocol: http
+  response:
+    body: {string: '[true,true]'}
+    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
+      content-type: application/json; charset=utf-8, etag: '"bb009c6dcb5c622766ad5aa1ea1562d9"',
+      server: thin 1.5.0 codename Knife, x-request-id: 2453d94eb997eaa1501e4afcb91b1372,
+      x-runtime: '0.143837', x-ua-compatible: IE=Edge}
+    status: {code: 200, message: OK}
