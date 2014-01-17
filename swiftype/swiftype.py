@@ -63,6 +63,9 @@ class Client(object):
   def create_or_update_documents(self, engine_id, document_type_id, documents=[]):
     return self.conn._post(self.__documents_path(engine_id, document_type_id) + '/bulk_create_or_update', data={'documents':documents})
 
+  def create_or_update_documents_verbose(self, engine_id, document_type_id, documents=[]):
+    return self.conn._post(self.__documents_path(engine_id, document_type_id) + '/bulk_create_or_update_verbose', data={'documents':documents})
+
   def update_document(self, engine_id, document_type_id, document_id, fields={}):
     return self.conn._put(self.__document_path(engine_id, document_type_id, document_id) + '/update_fields', data={'fields':fields})
 

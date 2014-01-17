@@ -96,6 +96,24 @@ class TestClientFunctions(unittest.TestCase):
             stati = self.client.create_or_update_documents(self.engine, self.document_type, docs)['body']
             self.assertEqual(stati, [True, True])
 
+    def test_create_or_update_documents_failure(self):
+        with vcr.use_cassette('fixtures/create_or_update_documents_failure.yaml'):
+            docs = [{'external_id': '1', 'fields': [{'type': 'string', 'name': 'title'}]}] # <= missing 'value'
+            stati = self.client.create_or_update_documents(self.engine, self.document_type, docs)['body']
+            self.assertEqual(stati, [False])
+
+    def test_create_or_update_documents_verbose(self):
+        with vcr.use_cassette('fixtures/create_or_update_documents_verbose.yaml'):
+            docs = [{'external_id': '1'}, {'external_id': '2'}]
+            stati = self.client.create_or_update_documents_verbose(self.engine, self.document_type, docs)['body']
+            self.assertEqual(stati, [True, True])
+
+    def test_create_or_update_documents_verbose_failure(self):
+        with vcr.use_cassette('fixtures/create_or_update_documents_verbose_failure.yaml'):
+            docs = [{'external_id': '1', 'fields': [{'type': 'string', 'name': 'title'}]}] # <= missing 'value'
+            stati = self.client.create_or_update_documents_verbose(self.engine, self.document_type, docs)['body']
+            self.assertRegexpMatches(stati[0], r'^Invalid field definition')
+
     def test_update_document(self):
         with vcr.use_cassette('fixtures/update_document.yaml'):
             document_id = '2'
