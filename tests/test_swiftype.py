@@ -1,7 +1,7 @@
 from swiftype import swiftype
 import os
 import time
-import unittest
+import unittest2 as unittest
 import vcr
 from mock import Mock
 
