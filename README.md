@@ -16,7 +16,7 @@ To install locally, clone this repository, `cd` into the directory and run:
 
 ## Setup
 
-1. Create an account at [Swiftype](https://swiftype.com/) and get your API key from your [Account Settings](https://swiftype.com/user/edit).
+1. Create an account at [Swiftype](https://swiftype.com/) and get your API key from your [Account Settings](https://app.swiftype.com/settings/account).
 
 2. Configure your client:
 
