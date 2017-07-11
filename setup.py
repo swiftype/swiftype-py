@@ -12,7 +12,7 @@ setup(
     author_email = 'team@swiftype.com',
     url = 'https://swiftype.com/',
     packages = find_packages(),
-    install_requires = ["anyjson"],
+    install_requires = ["anyjson", "future==0.16.0"],
     test_suite='nose.collector',
     classifiers = [
         'Intended Audience :: Developers',
