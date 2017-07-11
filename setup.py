@@ -2,8 +2,7 @@
 
 from setuptools import setup, find_packages
 
-import os
-execfile(os.path.join('swiftype', 'version.py'))
+from swiftype.version import VERSION
 
 setup(
     name = 'swiftype',
