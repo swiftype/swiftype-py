@@ -1,17 +1,13 @@
-- request: !!python/object:vcr.request.Request
+interactions:
+- request:
     body: '{"document": {"fields": {}, "external_id": "1"}}'
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
-      - !!python/tuple [Content-Type, application/json]
-    host: localhost
+    headers:
+      Content-Type: [application/json]
+      User-Agent: [Swiftype-Python/1.0.0]
     method: POST
-    path: /api/v1/engines/api-test/document_types/books/documents/create_or_update.json?auth_token=a-test-api-key
-    port: 3000
-    protocol: http
+    uri: http://localhost:3000/api/v1/engines/api-test/document_types/books/documents/create_or_update.json?auth_token=a-test-api-key
   response:
     body: {string: '{"external_id":"1","engine_id":"52c73e443ae7403ec900001e","document_type_id":"52c742b63ae7401cb6000004","id":"52c743d73ae7403ec9000024","_id":"52c743d73ae7403ec9000024","updated_at":"2014-01-06T21:27:02Z"}'}
-    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
-      content-type: application/json; charset=utf-8, etag: '"649075907555592ef5c4782ec193e521"',
-      server: thin 1.5.0 codename Knife, x-request-id: 153c8f43b488e477274d0493e2711b16,
-      x-runtime: '0.151915', x-ua-compatible: IE=Edge}
+    headers: {}
     status: {code: 200, message: OK}
+version: 1

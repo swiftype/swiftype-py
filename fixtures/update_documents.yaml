@@ -1,18 +1,14 @@
-- request: !!python/object:vcr.request.Request
+interactions:
+- request:
     body: '{"documents": [{"fields": {"myfieldthathasnotbeencreated": "foobar"}, "external_id":
       "1"}, {"fields": {"title": "new title"}, "external_id": "2"}]}'
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
-      - !!python/tuple [Content-Type, application/json]
-    host: localhost
+    headers:
+      Content-Type: [application/json]
+      User-Agent: [Swiftype-Python/1.0.0]
     method: PUT
-    path: /api/v1/engines/api-test/document_types/books/documents/bulk_update.json?auth_token=a-test-api-key
-    port: 3000
-    protocol: http
+    uri: http://localhost:3000/api/v1/engines/api-test/document_types/books/documents/bulk_update.json?auth_token=a-test-api-key
   response:
     body: {string: '[false,true]'}
-    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
-      content-type: application/json; charset=utf-8, etag: '"abd031b64f38bdc4bad852eccd2d978a"',
-      server: thin 1.5.0 codename Knife, x-request-id: 26aaf09dba59f3b28b2f64a923027d24,
-      x-runtime: '0.152484', x-ua-compatible: IE=Edge}
+    headers: {}
     status: {code: 200, message: OK}
+version: 1

@@ -1,17 +1,13 @@
-- request: !!python/object:vcr.request.Request
+interactions:
+- request:
     body: ''
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
-      - !!python/tuple [Content-Type, application/json]
-    host: localhost
+    headers:
+      Content-Type: [application/json]
+      User-Agent: [Swiftype-Python/1.0.0]
     method: PUT
-    path: /api/v1/engines/crawler-demo/domains/52c754fb3ae7406fd3000001/recrawl.json?auth_token=a-test-api-key
-    port: 3000
-    protocol: http
+    uri: http://localhost:3000/api/v1/engines/crawler-demo/domains/52c754fb3ae7406fd3000001/recrawl.json?auth_token=a-test-api-key
   response:
     body: {string: '{"id":"52c754fb3ae7406fd3000001","engine_id":"52c74ea83ae7403ec9000032","submitted_url":"http://crawler-demo-site.herokuapp.com/","start_crawl_url":"http://crawler-demo-site.herokuapp.com/","crawling":false,"document_count":5,"updated_at":"2014-01-06T22:17:01Z"}'}
-    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
-      content-type: application/json; charset=utf-8, etag: '"83a03ddf0f7817d89dc33598797cd88d"',
-      server: thin 1.5.0 codename Knife, x-request-id: 544ba3c3e502a665e926d91d231934c9,
-      x-runtime: '0.023721', x-ua-compatible: IE=Edge}
+    headers: {}
     status: {code: 200, message: OK}
+version: 1

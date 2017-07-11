@@ -1,17 +1,14 @@
-- request: !!python/object:vcr.request.Request
+interactions:
+- request:
     body: ''
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
-      - !!python/tuple [Authorization, Bearer 6cf7fbd297f00a8e3863a0595f55ff7d141cbef2fcbe00159d0f7403649b384e]
-      - !!python/tuple [Content-Type, application/json]
-    host: localhost
+    headers:
+      Authorization: [Bearer 6cf7fbd297f00a8e3863a0595f55ff7d141cbef2fcbe00159d0f7403649b384e]
+      Content-Type: [application/json]
+      User-Agent: [Swiftype-Python/1.0.0]
     method: DELETE
-    path: /api/v1/engines/myuserengine.json
-    port: 3000
-    protocol: http
+    uri: http://localhost:3000/api/v1/engines/myuserengine.json
   response:
     body: {string: '{"error":"Permission denied."}'}
-    headers: {cache-control: no-cache, connection: close, content-type: application/json;
-        charset=utf-8, server: thin 1.5.0 codename Knife, x-request-id: 1ce7984333c15a3fb5c158dadddb61e8,
-      x-runtime: '0.021690', x-ua-compatible: IE=Edge}
+    headers: {}
     status: {code: 403, message: Forbidden}
+version: 1

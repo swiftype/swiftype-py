@@ -1,16 +1,13 @@
-- request: !!python/object:vcr.request.Request
+interactions:
+- request:
     body: ''
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
-      - !!python/tuple [Content-Type, application/json]
-    host: localhost
+    headers:
+      Content-Type: [application/json]
+      User-Agent: [Swiftype-Python/1.0.0]
     method: DELETE
-    path: /api/v1/engines/api-test/document_types/books/documents/doc_id.json?auth_token=a-test-api-key
-    port: 3000
-    protocol: http
+    uri: http://localhost:3000/api/v1/engines/api-test/document_types/books/documents/doc_id.json?auth_token=a-test-api-key
   response:
     body: {string: ''}
-    headers: {cache-control: no-cache, connection: close, server: thin 1.5.0 codename
-        Knife, x-request-id: fe5ad857df6c6323f0e8ebdcefca07fe, x-runtime: '0.034610',
-      x-ua-compatible: IE=Edge}
+    headers: {}
     status: {code: 204, message: No Content}
+version: 1

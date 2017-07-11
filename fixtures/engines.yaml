@@ -1,17 +1,14 @@
-- request: !!python/object:vcr.request.Request
+interactions:
+- request:
     body: ''
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
-      - !!python/tuple [Content-Type, application/json]
-    host: localhost
+    headers:
+      Content-Type: [application/json]
+      User-Agent: [Swiftype-Python/1.0.0]
     method: GET
-    path: /api/v1/engines.json?auth_token=a-test-api-key
-    port: 3000
-    protocol: http
+    uri: http://localhost:3000/api/v1/engines.json?auth_token=a-test-api-key
   response:
-    body: {string: '[{"name":"api test ","slug":"api-test","key":"k5zFUMeDxn2uFaqzGDrS","id":"52c73e443ae7403ec900001e","_id":"52c73e443ae7403ec900001e","updated_at":"2014-01-03T23:35:21Z","document_count":2},{"name":"Crawler Demo","slug":"crawler-demo","key":"whYbNeFx9D1PQg8xXv8H","id":"52c74ea83ae7403ec9000032","_id":"52c74ea83ae7403ec9000032","updated_at":"2014-01-03T23:58:37Z","document_count":17},{"name":"engine","slug":"engine","key":"zicsWdgY3hFLqqQGRBg1","id":"52c73b833ae7403ec9000012","_id":"52c73b833ae7403ec9000012","updated_at":"2014-01-03T22:36:51Z","document_count":0}]'}
-    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
-      content-type: application/json; charset=utf-8, etag: '"7df191d30e4d8809e5b910b7a5cfc369"',
-      server: thin 1.5.0 codename Knife, x-request-id: e2536ffcbcc7903d949c0787fbe665ab,
-      x-runtime: '0.022098', x-ua-compatible: IE=Edge}
+    body: {string: '[{"name":"api test ","slug":"api-test","key":"k5zFUMeDxn2uFaqzGDrS","id":"52c73e443ae7403ec900001e","_id":"52c73e443ae7403ec900001e","updated_at":"2014-01-03T23:35:21Z","document_count":2},{"name":"Crawler
+        Demo","slug":"crawler-demo","key":"whYbNeFx9D1PQg8xXv8H","id":"52c74ea83ae7403ec9000032","_id":"52c74ea83ae7403ec9000032","updated_at":"2014-01-03T23:58:37Z","document_count":17},{"name":"engine","slug":"engine","key":"zicsWdgY3hFLqqQGRBg1","id":"52c73b833ae7403ec9000012","_id":"52c73b833ae7403ec9000012","updated_at":"2014-01-03T22:36:51Z","document_count":0}]'}
+    headers: {}
     status: {code: 200, message: OK}
+version: 1

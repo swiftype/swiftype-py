@@ -1,17 +1,13 @@
-- request: !!python/object:vcr.request.Request
+interactions:
+- request:
     body: ''
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
-      - !!python/tuple [Content-Type, application/json]
-    host: localhost
+    headers:
+      Content-Type: [application/json]
+      User-Agent: [Swiftype-Python/1.0.0]
     method: GET
-    path: /api/v1/engines/api-test/analytics/top_queries_in_range.json?auth_token=a-test-api-key&start_date=2013-12-31&end_date=2014-01-01
-    port: 3000
-    protocol: http
+    uri: http://localhost:3000/api/v1/engines/api-test/analytics/top_queries_in_range.json?auth_token=a-test-api-key&start_date=2013-12-31&end_date=2014-01-01
   response:
     body: {string: '[["dostoyevsky",2],["gatsby",1]]'}
-    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
-      content-type: application/json; charset=utf-8, etag: '"d751713988987e9331980363e24189ce"',
-      server: thin 1.5.0 codename Knife, x-request-id: 235629bc196d3670614a343c86968f37,
-      x-runtime: '0.015943', x-ua-compatible: IE=Edge}
+    headers: {}
     status: {code: 200, message: OK}
+version: 1

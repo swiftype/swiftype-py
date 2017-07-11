@@ -1,17 +1,13 @@
-- request: !!python/object:vcr.request.Request
+interactions:
+- request:
     body: '{"engine": {"name": "myengine"}}'
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
-      - !!python/tuple [Content-Type, application/json]
-    host: localhost
+    headers:
+      Content-Type: [application/json]
+      User-Agent: [Swiftype-Python/1.0.0]
     method: POST
-    path: /api/v1/engines.json?auth_token=a-test-api-key
-    port: 3000
-    protocol: http
+    uri: http://localhost:3000/api/v1/engines.json?auth_token=a-test-api-key
   response:
     body: {string: '{"name":"myengine","slug":"myengine","key":"ziLaAWiqF1VpspxTTp3J","id":"52cb2bda3ae7403ec9000048","_id":"52cb2bda3ae7403ec9000048","updated_at":"2014-01-06T22:19:06Z","document_count":0}'}
-    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
-      content-type: application/json; charset=utf-8, etag: '"aa8d31b44a267ae9dd90ddb1cd02fe7c"',
-      server: thin 1.5.0 codename Knife, x-request-id: abfc9415006498b825e06a3273b34cd6,
-      x-runtime: '0.157257', x-ua-compatible: IE=Edge}
+    headers: {}
     status: {code: 200, message: OK}
+version: 1

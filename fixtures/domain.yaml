@@ -1,17 +1,13 @@
-- request: !!python/object:vcr.request.Request
+interactions:
+- request:
     body: ''
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
-      - !!python/tuple [Content-Type, application/json]
-    host: localhost
+    headers:
+      Content-Type: [application/json]
+      User-Agent: [Swiftype-Python/1.0.0]
     method: GET
-    path: /api/v1/engines/crawler-demo/domains/52c759423ae7403ec900003b.json?auth_token=a-test-api-key
-    port: 3000
-    protocol: http
+    uri: http://localhost:3000/api/v1/engines/crawler-demo/domains/52c759423ae7403ec900003b.json?auth_token=a-test-api-key
   response:
     body: {string: '{"id":"52c759423ae7403ec900003b","engine_id":"52c74ea83ae7403ec9000032","submitted_url":"http://www.example.com","start_crawl_url":"http://www.example.com/","crawling":false,"document_count":0,"updated_at":"2014-01-04T00:43:53Z"}'}
-    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
-      content-type: application/json; charset=utf-8, etag: '"62e94a0c9adc5454a599bd36cc13c2fe"',
-      server: thin 1.5.0 codename Knife, x-request-id: 6641ef62e19f9ad518765cf22c61c474,
-      x-runtime: '0.022423', x-ua-compatible: IE=Edge}
+    headers: {}
     status: {code: 200, message: OK}
+version: 1
