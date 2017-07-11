@@ -1,12 +1,21 @@
+from __future__ import unicode_literals
+
+from future.standard_library import install_aliases
+install_aliases()
+
 import anyjson
-import httplib
-import urllib
-import urlparse
 import base64
 import time
 import hashlib
+from urllib.parse import urlparse, urlunparse, urlencode
 
-from version import VERSION
+try:
+    # VCRpy only works when `httplib` is imported directly on Python 2.x
+    import httplib
+except ImportError:
+    import http.client as httplib
+
+from .version import VERSION
 
 USER_AGENT = 'Swiftype-Python/' + VERSION
 DEFAULT_API_HOST = 'api.swiftype.com'
@@ -80,41 +89,41 @@ class Client(object):
 
   def search(self, engine_id, query, options={}):
     query_string = {'q': query}
-    full_query = dict(query_string.items() + options.items())
+    full_query = dict(list(query_string.items()) + list(options.items()))
     return self.conn._get(self.__search_path(engine_id), data=full_query)
 
   def search_document_type(self, engine_id, document_type_id, query, options={}):
     query_string = {'q': query}
-    full_query = dict(query_string.items() + options.items())
+    full_query = dict(list(query_string.items()) + list(options.items()))
     return self.conn._get(self.__document_type_search_path(engine_id, document_type_id), data=full_query)
 
   def suggest(self, engine_id, query, options={}):
     query_string = {'q': query}
-    full_query = dict(query_string.items() + options.items())
+    full_query = dict(list(query_string.items()) + list(options.items()))
     return self.conn._get(self.__suggest_path(engine_id), data=full_query)
 
   def suggest_document_type(self, engine_id, document_type_id, query, options={}):
     query_string = {'q': query}
-    full_query = dict(query_string.items() + options.items())
+    full_query = dict(list(query_string.items()) + list(options.items()))
     return self.conn._get(self.__document_type_suggest_path(engine_id, document_type_id), data=full_query)
 
   def analytics_searches(self, engine_id, start_date=None, end_date=None):
-    params = dict((k,v) for k,v in {'start_date': start_date, 'end_date': end_date}.iteritems() if v is not None)
+    params = dict((k,v) for k,v in {'start_date': start_date, 'end_date': end_date}.items() if v is not None)
     return self.conn._get(self.__analytics_path(engine_id) + '/searches', params)
 
   def analytics_autoselects(self, engine_id, start_date=None, end_date=None):
-    params = dict((k,v) for k,v in {'start_date': start_date, 'end_date': end_date}.iteritems() if v is not None)
+    params = dict((k,v) for k,v in {'start_date': start_date, 'end_date': end_date}.items() if v is not None)
     return self.conn._get(self.__analytics_path(engine_id) + '/autoselects', params)
 
   def analytics_top_queries(self, engine_id, page=None, per_page=None):
     return self.conn._get(self.__analytics_path(engine_id) + '/top_queries', self.__pagination_params(page, per_page))
 
   def analytics_top_queries_in_range(self, engine_id, start_date=None, end_date=None):
-    params = dict((k,v) for k,v in {'start_date': start_date, 'end_date': end_date}.iteritems() if v is not None)
+    params = dict((k,v) for k,v in {'start_date': start_date, 'end_date': end_date}.items() if v is not None)
     return self.conn._get(self.__analytics_path(engine_id) + '/top_queries_in_range', params)
 
   def analytics_top_no_result_queries(self, engine_id, start_date=None, end_date=None):
-    params = dict((k,v) for k,v in {'start_date': start_date, 'end_date': end_date}.iteritems() if v is not None)
+    params = dict((k,v) for k,v in {'start_date': start_date, 'end_date': end_date}.items() if v is not None)
     return self.conn._get(self.__analytics_path(engine_id) + '/top_no_result_queries_in_range', params)
 
   def domains(self, engine_id):
@@ -137,7 +146,7 @@ class Client(object):
 
   def users(self, page=None, per_page=None):
     params = {'client_id': self.client_id, 'client_secret': self.client_secret}
-    return self.conn._get(self.__users_path(), dict(params.items() + self.__pagination_params(page, per_page).items()))
+    return self.conn._get(self.__users_path(), dict(list(params.items()) + list(self.__pagination_params(page, per_page).items())))
 
   def user(self, user_id):
     params = {'client_id': self.client_id, 'client_secret': self.client_secret}
@@ -150,10 +159,12 @@ class Client(object):
   def sso_url(self, user_id):
     timestamp = self._get_timestamp()
     params = {'user_id': user_id, 'client_id': self.client_id, 'timestamp': timestamp, 'token': self._sso_token(user_id, timestamp)}
-    return urlparse.urlunparse(('https', 'swiftype.com', '/sso', '', urllib.urlencode(params), ''))
+    return urlunparse(('https', 'swiftype.com', '/sso', '', urlencode(params), ''))
 
   def _sso_token(self, user_id, timestamp):
-    return hashlib.sha1('%s:%s:%s' % (user_id, self.client_secret, timestamp)).hexdigest()
+    return hashlib.sha1((
+        '%s:%s:%s' % (user_id, self.client_secret, timestamp)
+    ).encode('utf-8')).hexdigest()
 
   def _get_timestamp(self):
     return int(time.time())
@@ -175,7 +186,7 @@ class Client(object):
   def __user_path(self, user_id): return 'users/%s' % (user_id)
 
   def __pagination_params(self, page, per_page):
-    return dict((k,v) for k,v in {'page': page, 'per_page': per_page}.iteritems() if v is not None)
+    return dict((k,v) for k,v in {'page': page, 'per_page': per_page}.items() if v is not None)
 
 class HttpException(Exception):
     def __init__(self, status, msg):
@@ -224,7 +235,7 @@ class Connection(object):
       raise Unauthorized('Authorization required.')
 
     full_path = self.__base_path + path + '.json'
-    query = urllib.urlencode(params, True)
+    query = urlencode(params, True)
     if query:
       full_path += '?' + query
 
@@ -235,11 +246,11 @@ class Connection(object):
 
     response = connection.getresponse()
     response.body = response.read()
-    if (response.status / 100 == 2):
+    if (response.status // 100 == 2):
         if response.body:
             try:
-                response.body = anyjson.deserialize(response.body)
-            except ValueError, e:
+                response.body = anyjson.deserialize(response.body.decode('utf-8'))
+            except ValueError as e:
                 raise InvalidResponseFromServer('The JSON response could not be parsed: %s.\n%s' % (e, response.body))
             ret = {'status': response.status, 'body':response.body }
         else:
