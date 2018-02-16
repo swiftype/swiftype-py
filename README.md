@@ -1,4 +1,4 @@
-# Swiftype Site Search API Client for Python
+# Python Client for Swiftype Site Search
 
 [![Build Status](https://travis-ci.org/swiftype/swiftype-py.png?branch=master)](https://travis-ci.org/swiftype/swiftype-py)
 
