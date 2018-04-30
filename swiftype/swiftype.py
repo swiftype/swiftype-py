@@ -87,22 +87,22 @@ class Client(object):
 
   def search(self, engine_id, query, options={}):
     query_string = {'q': query}
-    full_query = dict(list(query_string.items()) + list(options.items()))
+    full_query = dict(query_string, **options)
     return self.conn._get(self.__search_path(engine_id), data=full_query)
 
   def search_document_type(self, engine_id, document_type_id, query, options={}):
     query_string = {'q': query}
-    full_query = dict(list(query_string.items()) + list(options.items()))
+    full_query = dict(query_string, **options)
     return self.conn._get(self.__document_type_search_path(engine_id, document_type_id), data=full_query)
 
   def suggest(self, engine_id, query, options={}):
     query_string = {'q': query}
-    full_query = dict(list(query_string.items()) + list(options.items()))
+    full_query = dict(query_string, **options)
     return self.conn._get(self.__suggest_path(engine_id), data=full_query)
 
   def suggest_document_type(self, engine_id, document_type_id, query, options={}):
     query_string = {'q': query}
-    full_query = dict(list(query_string.items()) + list(options.items()))
+    full_query = dict(query_string, **options)
     return self.conn._get(self.__document_type_suggest_path(engine_id, document_type_id), data=full_query)
 
   def analytics_searches(self, engine_id, start_date=None, end_date=None):
@@ -144,7 +144,7 @@ class Client(object):
 
   def users(self, page=None, per_page=None):
     params = {'client_id': self.client_id, 'client_secret': self.client_secret}
-    return self.conn._get(self.__users_path(), dict(list(params.items()) + list(self.__pagination_params(page, per_page).items())))
+    return self.conn._get(self.__users_path(), dict(params, **self.__pagination_params(page, per_page)))
 
   def user(self, user_id):
     params = {'client_id': self.client_id, 'client_secret': self.client_secret}
