@@ -287,6 +287,23 @@ class TestClientFunctions(unittest.TestCase):
         name = name if name else self.__time_name()
         return
 
+
+class TestClientUsernameAndPassword(unittest.TestCase):
+
+    def setUp(self):
+        self.client = swiftype.Client(
+            username='some_user',
+            password='some_pasword',
+            host='localhost:3000'
+        )
+
+    def test_engine_create(self):
+        with vcr.use_cassette('fixtures/engine_create.yaml'):
+            engine = 'myengine'
+            slug = self.client.create_engine(engine)['body']['slug']
+            self.assertEqual(slug, engine)
+
+
 class TestPlatformUsers(unittest.TestCase):
 
     def setUp(self):
