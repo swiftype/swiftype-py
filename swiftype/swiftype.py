@@ -1,13 +1,11 @@
 from __future__ import unicode_literals
 
-from future.standard_library import install_aliases
-install_aliases()
-
-import anyjson
 import base64
 import time
 import hashlib
-from urllib.parse import urlparse, urlunparse, urlencode
+
+import anyjson
+from six.moves.urllib_parse import urlunparse, urlencode
 
 try:
     # VCRpy only works when `httplib` is imported directly on Python 2.x

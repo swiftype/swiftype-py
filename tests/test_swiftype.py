@@ -2,7 +2,7 @@ from swiftype import swiftype
 import os
 import time
 import unittest2 as unittest
-from urllib.parse import urlparse, parse_qs
+from six.moves.urllib_parse import urlparse, parse_qs
 import vcr
 from mock import Mock
 
