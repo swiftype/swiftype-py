@@ -1,17 +1,13 @@
-- request: !!python/object:vcr.request.Request
+interactions:
+- request:
     body: ''
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
-      - !!python/tuple [Content-Type, application/json]
-    host: localhost
+    headers:
+      Content-Type: [application/json]
+      User-Agent: [Swiftype-Python/1.0.0]
     method: GET
-    path: /api/v1/engines/api-test/analytics/autoselects.json?auth_token=a-test-api-key
-    port: 3000
-    protocol: http
+    uri: http://localhost:3000/api/v1/engines/api-test/analytics/autoselects.json?auth_token=a-test-api-key
   response:
     body: {string: '[["2014-01-06",0],["2014-01-05",0],["2014-01-04",0],["2014-01-03",0],["2014-01-02",0],["2014-01-01",0],["2013-12-31",0],["2013-12-30",0],["2013-12-29",0],["2013-12-28",0],["2013-12-27",0],["2013-12-26",0],["2013-12-25",0],["2013-12-24",0],["2013-12-23",0]]'}
-    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
-      content-type: application/json; charset=utf-8, etag: '"d4e02fbdbba3a819f576e328f1a08201"',
-      server: thin 1.5.0 codename Knife, x-request-id: e9796df35b44951f138f20e31a1ef70e,
-      x-runtime: '0.017000', x-ua-compatible: IE=Edge}
+    headers: {}
     status: {code: 200, message: OK}
+version: 1

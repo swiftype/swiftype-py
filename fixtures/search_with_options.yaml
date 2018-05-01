@@ -1,34 +1,24 @@
-- request: !!python/object:vcr.request.Request
+interactions:
+- request:
     body: ''
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
-      - !!python/tuple [Content-Type, application/json]
-    host: localhost
+    headers:
+      Content-Type: [application/json]
+      User-Agent: [Swiftype-Python/1.0.0]
     method: GET
-    path: /api/v1/engines/api-test/document_types.json?auth_token=a-test-api-key
-    port: 3000
-    protocol: http
+    uri: http://localhost:3000/api/v1/engines/api-test/document_types.json?auth_token=a-test-api-key
   response:
     body: {string: '[{"id":"52c73e443ae7403ec900001d","name":"responses","slug":"responses","engine_id":"52c73e443ae7403ec900001e","updated_at":"2014-01-03T22:48:36Z","document_count":0,"field_mapping":{}},{"id":"52c742b63ae7401cb6000004","name":"books","slug":"books","engine_id":"52c73e443ae7403ec900001e","updated_at":"2014-01-03T23:43:03Z","document_count":2,"field_mapping":{"external_id":"enum","updated_at":"date","title":"string","author":"string","genre":"enum"}}]'}
-    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
-      content-type: application/json; charset=utf-8, etag: '"c3aaeeed9be8d9f4c5816da1aa1d080b"',
-      server: thin 1.5.0 codename Knife, x-request-id: 6caeb1b22b5eafdfdc33170e59bb4304,
-      x-runtime: '0.021331', x-ua-compatible: IE=Edge}
+    headers: {}
     status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
+- request:
     body: '{"q": "query", "page": 2}'
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
-      - !!python/tuple [Content-Type, application/json]
-    host: localhost
+    headers:
+      Content-Type: [application/json]
+      User-Agent: [Swiftype-Python/1.0.0]
     method: GET
-    path: /api/v1/engines/api-test/search.json?auth_token=a-test-api-key
-    port: 3000
-    protocol: http
+    uri: http://localhost:3000/api/v1/engines/api-test/search.json?auth_token=a-test-api-key
   response:
     body: {string: '{"records":{"responses":[],"books":[]},"info":{"responses":{"query":"query","current_page":2,"num_pages":0,"per_page":20,"total_result_count":0,"facets":{}},"books":{"query":"query","current_page":2,"num_pages":0,"per_page":20,"total_result_count":0,"facets":{}}},"errors":{}}'}
-    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
-      content-type: application/json; charset=utf-8, etag: '"58a83e3bd528760413758c355402661a"',
-      server: thin 1.5.0 codename Knife, x-request-id: 9f68fbc242d5b60082d85214e9914bd4,
-      x-runtime: '0.170619', x-ua-compatible: IE=Edge}
+    headers: {}
     status: {code: 200, message: OK}
+version: 1

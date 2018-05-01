@@ -2,8 +2,7 @@
 
 from setuptools import setup, find_packages
 
-import os
-execfile(os.path.join('swiftype', 'version.py'))
+from swiftype.version import VERSION
 
 setup(
     name = 'swiftype',
@@ -13,7 +12,7 @@ setup(
     author_email = 'team@swiftype.com',
     url = 'https://swiftype.com/',
     packages = find_packages(),
-    install_requires = ["anyjson"],
+    install_requires = ["anyjson", "six"],
     test_suite='nose.collector',
     classifiers = [
         'Intended Audience :: Developers',

@@ -1,17 +1,13 @@
-- request: !!python/object:vcr.request.Request
+interactions:
+- request:
     body: ''
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
-      - !!python/tuple [Content-Type, application/json]
-    host: localhost
+    headers:
+      Content-Type: [application/json]
+      User-Agent: [Swiftype-Python/1.0.0]
     method: GET
-    path: /api/v1/engines/crawler-demo/domains.json?auth_token=a-test-api-key
-    port: 3000
-    protocol: http
+    uri: http://localhost:3000/api/v1/engines/crawler-demo/domains.json?auth_token=a-test-api-key
   response:
     body: {string: '[{"id":"52c759423ae7403ec900003b","engine_id":"52c74ea83ae7403ec9000032","submitted_url":"http://www.example.com","start_crawl_url":"http://www.example.com/","crawling":false,"document_count":0,"updated_at":"2014-01-04T00:43:53Z"},{"id":"52c754fb3ae7406fd3000001","engine_id":"52c74ea83ae7403ec9000032","submitted_url":"http://crawler-demo-site.herokuapp.com/","start_crawl_url":"http://crawler-demo-site.herokuapp.com/","crawling":false,"document_count":5,"updated_at":"2014-01-06T18:31:12Z"}]'}
-    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
-      content-type: application/json; charset=utf-8, etag: '"4868a2bc81112ff67f2871331ee0497d"',
-      server: thin 1.5.0 codename Knife, x-request-id: c38b6d13d4bd190d2d0e94b1d6ba434d,
-      x-runtime: '0.022666', x-ua-compatible: IE=Edge}
+    headers: {}
     status: {code: 200, message: OK}
+version: 1

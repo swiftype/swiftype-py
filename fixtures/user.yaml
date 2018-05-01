@@ -1,17 +1,13 @@
-- request: !!python/object:vcr.request.Request
+interactions:
+- request:
     body: ''
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
-      - !!python/tuple [Content-Type, application/json]
-    host: localhost
+    headers:
+      Content-Type: [application/json]
+      User-Agent: [Swiftype-Python/1.0.0]
     method: GET
-    path: /api/v1/users/12345.json?client_secret=4441879b5e2a9c3271f5b1a4bc223b715f091e5ed20fe75d1352e1290c7a6dfb&auth_token=a-test-api-key&client_id=3e4fd842fc99aecb4dc50e5b88a186c1e206ddd516cdd336da3622c4afd7e2e9
-    port: 3000
-    protocol: http
+    uri: http://localhost:3000/api/v1/users/12345.json?client_secret=4441879b5e2a9c3271f5b1a4bc223b715f091e5ed20fe75d1352e1290c7a6dfb&auth_token=a-test-api-key&client_id=3e4fd842fc99aecb4dc50e5b88a186c1e206ddd516cdd336da3622c4afd7e2e9
   response:
     body: {string: '{"id":"12345","access_token":"ab37d7821853d6be1d7c451b449064ccf55300fdd5157baed48af53fd52b61f5"}'}
-    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
-      content-type: application/json; charset=utf-8, etag: '"28378b63dc4393c429edb345597939d5"',
-      server: thin 1.5.0 codename Knife, x-request-id: 2247f7e72009526040223e8b105c174a,
-      x-runtime: '0.024827', x-ua-compatible: IE=Edge}
+    headers: {}
     status: {code: 200, message: OK}
+version: 1

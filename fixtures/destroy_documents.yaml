@@ -1,17 +1,13 @@
-- request: !!python/object:vcr.request.Request
+interactions:
+- request:
     body: '{"documents": ["doc_id1", "doc_id2"]}'
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [User-Agent, Swiftype-Python/1.0.0]
-      - !!python/tuple [Content-Type, application/json]
-    host: localhost
+    headers:
+      Content-Type: [application/json]
+      User-Agent: [Swiftype-Python/1.0.0]
     method: POST
-    path: /api/v1/engines/api-test/document_types/books/documents/bulk_destroy.json?auth_token=a-test-api-key
-    port: 3000
-    protocol: http
+    uri: http://localhost:3000/api/v1/engines/api-test/document_types/books/documents/bulk_destroy.json?auth_token=a-test-api-key
   response:
     body: {string: '[true,true]'}
-    headers: {cache-control: 'max-age=0, private, must-revalidate', connection: close,
-      content-type: application/json; charset=utf-8, etag: '"bb009c6dcb5c622766ad5aa1ea1562d9"',
-      server: thin 1.5.0 codename Knife, x-request-id: 9ef3249b7f940c64ce0ec83cdc2e3e38,
-      x-runtime: '0.164122', x-ua-compatible: IE=Edge}
+    headers: {}
     status: {code: 200, message: OK}
+version: 1

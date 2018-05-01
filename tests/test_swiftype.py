@@ -2,6 +2,7 @@ from swiftype import swiftype
 import os
 import time
 import unittest2 as unittest
+from six.moves.urllib_parse import urlparse, parse_qs
 import vcr
 from mock import Mock
 
@@ -269,14 +270,14 @@ class TestClientFunctions(unittest.TestCase):
     def __is_expected_result(self, request, status_code, expected_values, *args):
         response = request(*args)
         self.assertEqual(response['status'], status_code)
-        for k,v in expected_values.iteritems():
+        for k,v in expected_values.items():
             self.assertEqual(response['body'][k], v)
 
     def __is_expected_collection(self, request, status_code, collection_length, expected_values, *args):
         response = request(*args)
         self.assertEqual(response['status'], status_code)
         self.assertEqual(len(response['body']), collection_length)
-        for k,v in expected_values.iteritems():
+        for k,v in expected_values.items():
             self.assertEqual(len([item for item in response['body'] if item[k] == v]), 1)
 
     def __time_name(self):
@@ -285,6 +286,23 @@ class TestClientFunctions(unittest.TestCase):
     def __create_temporary_engine(self, name = None):
         name = name if name else self.__time_name()
         return
+
+
+class TestClientUsernameAndPassword(unittest.TestCase):
+
+    def setUp(self):
+        self.client = swiftype.Client(
+            username='some_user',
+            password='some_pasword',
+            host='localhost:3000'
+        )
+
+    def test_engine_create(self):
+        with vcr.use_cassette('fixtures/engine_create.yaml'):
+            engine = 'myengine'
+            slug = self.client.create_engine(engine)['body']['slug']
+            self.assertEqual(slug, engine)
+
 
 class TestPlatformUsers(unittest.TestCase):
 
@@ -331,7 +349,15 @@ class TestPlatformUsers(unittest.TestCase):
         self.client._get_timestamp = Mock(return_value=1379382520)
         user_id = '5064a7de2ed960e715000276'
         url = self.client.sso_url(user_id)
-        self.assertEqual(url, 'https://swiftype.com/sso?timestamp=1379382520&token=81033d182ad51f231cc9cda9fb24f2298a411437&user_id=5064a7de2ed960e715000276&client_id=3e4fd842fc99aecb4dc50e5b88a186c1e206ddd516cdd336da3622c4afd7e2e9')
+        self.assertEqual(
+            parse_qs(urlparse(url).query),
+            {
+                'user_id': ['5064a7de2ed960e715000276'],
+                'client_id': ['3e4fd842fc99aecb4dc50e5b88a186c1e206ddd516cdd336da3622c4afd7e2e9'],
+                'token': ['81033d182ad51f231cc9cda9fb24f2298a411437'],
+                'timestamp': ['1379382520'],
+            },
+        )
 
 class TestPlatformResources(unittest.TestCase):
 
