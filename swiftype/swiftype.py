@@ -19,6 +19,7 @@ USER_AGENT = 'Swiftype-Python/' + VERSION
 DEFAULT_API_HOST = 'api.swiftype.com'
 DEFAULT_API_BASE_PATH = '/api/v1/'
 
+
 class Client(object):
 
   def __init__(self, username=None, password=None, api_key=None, access_token=None, client_id=None, client_secret=None, host=DEFAULT_API_HOST):
@@ -229,7 +230,7 @@ class Connection(object):
     elif self.__api_key is not None:
       params['auth_token'] = self.__api_key
     else:
-      raise Unauthorized('Authorization required.')
+        raise HttpException(401, 'Authorization required.')
 
     full_path = self.__base_path + path + '.json'
     query = urlencode(params, True)
@@ -253,7 +254,7 @@ class Connection(object):
         else:
             ret = {'status': response.status }
     elif response.status == 401:
-        raise Unauthorized('Authorization required.')
+        raise HttpException( response.status, 'Authorization required.')
     else:
         raise HttpException(response.status, response.body)
     connection.close()
