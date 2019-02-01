@@ -8,8 +8,8 @@
 ## Contents
 
 + [Getting started](#getting-started-)
-+ [Usage](#content)
-+ [Running tests](#tests)
++ [Usage](#usage)
++ [Running tests](#running-tests)
 + [FAQ](#faq-)
 + [Contribute](#contribute-)
 + [License](#license-)
