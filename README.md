@@ -26,7 +26,7 @@ To install locally, clone this repository, `cd` into the directory and run:
 
     python setup.py install
 
-> **Note:** This client has been developed for the [Swiftype Site Search](https://www.swiftype.com/site-search) API endpoints only. You may refer to the [Swiftype Site Search API Documentation](https://swiftype.com/documentation/site-search/overview) for additional context.
+> **Note:** This client has been developed for the [Elastic Site Search](https://www.swiftype.com/site-search) API endpoints only. You may refer to the [Elastic Site Search API Documentation](https://swiftype.com/documentation/site-search/overview) for additional context.
 
 ## Usage
 
