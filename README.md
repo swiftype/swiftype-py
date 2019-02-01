@@ -1,12 +1,22 @@
-# Python Client for Swiftype Site Search API
+<p align="center"><img src="https://github.com/swiftype/swiftype-py/blob/master/logo-app-search.png?raw=true" alt="Elastic Site Search Logo"></p>
 
-[![Build Status](https://travis-ci.org/swiftype/swiftype-py.png?branch=master)](https://travis-ci.org/swiftype/swiftype-py)
+<p align="center"><a href="https://travis-ci.org/swiftype/swiftype-py"><img src="https://travis-ci.org/swiftype/swiftype-py.png?branch=master" alt="Travis build"></a>
+<a href="https://github.com/swiftype/swiftype-py/releases"><img src="https://img.shields.io/github/release/swiftype/swiftype-py/all.svg?style=flat-square" alt="GitHub release" /></a></p>
 
-> **Note:** This client has been developed for the [Swiftype Site Search](https://www.swiftype.com/site-search) API endpoints only. You may refer to the [Swiftype Site Search API Documentation](https://swiftype.com/documentation/site-search/overview) for additional context.
+> A first-party Python client for the [Elastic Site Search API](https://swiftype.com/documentation/site-search/overview).
 
-# Quickstart
+## Contents
 
-## Installation
++ [Getting started](#getting-started-)
++ [Usage](#usage)
++ [Running tests](#running-tests)
++ [FAQ](#faq-)
++ [Contribute](#contribute-)
++ [License](#license-)
+
+***
+
+## Getting started 🐣
 
 You can install the latest version of the Swiftype client using `pip`:
 
@@ -16,7 +26,9 @@ To install locally, clone this repository, `cd` into the directory and run:
 
     python setup.py install
 
-## Setup
+> **Note:** This client has been developed for the [Elastic Site Search](https://www.swiftype.com/site-search) API endpoints only. You may refer to the [Elastic Site Search API Documentation](https://swiftype.com/documentation/site-search/overview) for additional context.
+
+## Usage
 
 1.  Create an account at [Swiftype](https://swiftype.com/) and get your API key from your [Account Settings](https://app.swiftype.com/settings/account).
 
@@ -34,7 +46,7 @@ To install locally, clone this repository, `cd` into the directory and run:
         client.create_document_type('youtube', 'videos');
         client.create_document_type('youtube', 'channels');
 
-## Indexing
+### Indexing
 
 Now you need to create your `Document`s. It's very important to think about the type of each field you create a `Document`. The `DocumentType` the `Document` belongs to will remember each fields type and it is not possible to change it. The type specifies a fields features and you should choose them wisely. For details please have a look at our [Field Types Documentation](https://swiftype.com/documentation/overview#field_types).
 
@@ -63,7 +75,7 @@ Add a `Document` to the `users` `DocumentType`:
     		{'name': 'video_counts', 'value': 6, 'type': 'integer'}
     	]})
 
-## Searching
+### Searching
 
 Now your `Engine` is ready to receive queries. By default, search queries will match any fields that are of type `string` or `text`. You can search each `DocumentType` individually:
 
@@ -74,7 +86,7 @@ or search all `DocumentType`s on your `Engine` at once:
 
     results = client.search('youtube', 'swiftype')
 
-## Autocomplete
+### Autocomplete
 
 Finally, as with full-text searches, you may perform autocomplete-style (prefix match) searches as well:
 
@@ -84,9 +96,9 @@ or
 
     results = client.suggest_document_type('youtube', 'videos', 'swi')
 
-# API Documentation
+## API Documentation
 
-## Configuration:
+### Configuration:
 
 Before issuing commands to the API, configure the client with your API key:
 
@@ -95,7 +107,7 @@ Before issuing commands to the API, configure the client with your API key:
 
 You can find your API key in your [Account Settings](https://swiftype.com/user/edit).
 
-## Search
+### Search
 
 If you want to search for e.g. `swiftype` on your `Engine`, you can use:
 
@@ -109,7 +121,7 @@ Both search methods allow you to specify options as an extra parameter to e.g. f
 
     results = client.search_document_type('youtube', 'videos', 'swiftype', {'filters': {'videos': {'category': 'Tutorial'}}})
 
-## Autocomplete
+### Autocomplete
 
 Autocompletes have the same functionality as searches. You can autocomplete using all documents:
 
@@ -123,7 +135,7 @@ or add options to have more control over the results:
 
     results = client.suggest('youtube', 'swi', {'sort_field': {'videos': 'likes'}})
 
-## Engines
+### Engines
 
 Retrieve every `Engine`:
 
@@ -141,7 +153,7 @@ To delete an `Engine` you need the `slug` or the `id` field of an `engine`:
 
     client.destroy_engine('youtube')
 
-## Document Types
+### Document Types
 
 Retrieve `DocumentTypes`s of the `Engine` with the `slug` field `youtube`:
 
@@ -163,7 +175,7 @@ Delete a `DocumentType` using the `slug` or `id` of it:
 
     client.destroy_document_type('youtube', 'videos')
 
-## Documents
+### Documents
 
 Retrieve all `Document`s of `Engine` `youtube` and `DocumentType` `videos`:
 
@@ -256,7 +268,7 @@ Destroy multiple `Document`s at once:
 
     stati = client.destroy_documents('youtube','videos',['external_id2','external_id3','external_id6'])
 
-## Domains
+### Domains
 
 Retrieve all `Domain`s of `Engine` `websites`:
 
@@ -282,7 +294,7 @@ Add or update a URL for a `Domain`:
 
     client.crawl_url('websites', 'generated_id', 'https://swiftype.com/new/path/about.html')
 
-## Analytics
+### Analytics
 
 To get the amount of searches on your `Engine` in the last 14 days use:
 
@@ -320,7 +332,7 @@ You can also specify a date range for no result queries:
 
     top_no_result_queries = client.analytics_top_no_result_queries('youtube', '2013-01-01', '2013-02-01')
 
-## Platform API
+### Platform API
 
 If you've registered your service as a [Swiftype Platform Application](https://swiftype.com/documentation/users), you can use this library to create users and take actions on their behalf. (Learn more about the Platform API [here](https://swiftype.com/documentation/users).)
 
@@ -356,3 +368,30 @@ All of the same Engine APIs documented above will work with your new `user_clien
 
     pip install -r test_requirements.txt
     python tests/test_swiftype.py
+
+## FAQ 🔮
+
+### Where do I report issues with the client?
+
+If something is not working as expected, please open an [issue](https://github.com/swiftype/swiftype-py/issues/new).
+
+### Where can I learn more about Site Search?
+
+Your best bet is to read the [documentation](https://swiftype.com/documentation/site-search).
+
+### Where else can I go to get help?
+
+You can checkout the [Elastic Site Search community discuss forums](https://discuss.elastic.co/c/site-search).
+
+## Contribute 🚀
+
+We welcome contributors to the project. Before you begin, a couple notes...
+
++ Before opening a pull request, please create an issue to [discuss the scope of your proposal](https://github.com/swiftype/swiftype-py/issues).
++ Please write simple code and concise documentation, when appropriate.
+
+## License 📗
+
+[MIT](https://github.com/swiftype/swiftype-py/blob/master/LICENSE) © [Elastic](https://github.com/elastic)
+
+Thank you to all the [contributors](https://github.com/swiftype/swiftype-py/graphs/contributors)!
