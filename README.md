@@ -392,6 +392,6 @@ We welcome contributors to the project. Before you begin, a couple notes...
 
 ## License 📗
 
-[MIT](https://github.com/swiftype/swiftype-py/blob/master/LICENSE.txt) © [Elastic](https://github.com/elastic)
+[MIT](https://github.com/swiftype/swiftype-py/blob/master/LICENSE) © [Elastic](https://github.com/elastic)
 
 Thank you to all the [contributors](https://github.com/swiftype/swiftype-py/graphs/contributors)!
