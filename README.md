@@ -65,7 +65,7 @@ Add a `Document` to the `videos` `DocumentType`:
     		{'name': 'length', 'value': 1.50, 'type': 'float'}
     	]})
 
-Add a `Document` to the `users` `DocumentType`:
+Add a `Document` to the `channels` `DocumentType`:
 
     client.create_document('youtube', 'channels', {
     	'external_id': 'external_id1',
