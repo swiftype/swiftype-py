@@ -1,20 +1,24 @@
 <p align="center"><img src="https://github.com/swiftype/swiftype-py/blob/master/logo-site-search.png?raw=true" alt="Elastic Site Search Logo"></p>
 
-<p align="center"><a href="https://travis-ci.org/swiftype/swiftype-py"><img src="https://travis-ci.org/swiftype/swiftype-py.png?branch=master" alt="Travis build"></a>
+> **⚠️ This repository is deprecated ⚠️**
+>
+> **Please visit [https://github.com/elastic/site-search-python](https://github.com/elastic/site-search-python) for the up to date version. Thank you! - Elastic**
+
+<p align="center">
 <a href="https://github.com/swiftype/swiftype-py/releases"><img src="https://img.shields.io/github/release/swiftype/swiftype-py/all.svg?style=flat-square" alt="GitHub release" /></a></p>
 
 > A first-party Python client for the [Elastic Site Search API](https://swiftype.com/documentation/site-search/overview).
 
 ## Contents
 
-+ [Getting started](#getting-started-)
-+ [Usage](#usage)
-+ [Running tests](#running-tests)
-+ [FAQ](#faq-)
-+ [Contribute](#contribute-)
-+ [License](#license-)
+- [Getting started](#getting-started-)
+- [Usage](#usage)
+- [Running tests](#running-tests)
+- [FAQ](#faq-)
+- [Contribute](#contribute-)
+- [License](#license-)
 
-***
+---
 
 ## Getting started 🐣
 
@@ -33,16 +37,15 @@ To install locally, clone this repository, `cd` into the directory and run:
 1.  Create an account at [Swiftype](https://swiftype.com/) and get your API key from your [Account Settings](https://app.swiftype.com/settings/account).
 
 2.  Configure your client:
-    
+
         from swiftype import swiftype
         client = swiftype.Client(api_key='YOUR_API_KEY')
-    
 
-3.  Create an `Engine` named e.g. `youtube`:
+3)  Create an `Engine` named e.g. `youtube`:
 
         engine = client.create_engine('youtube')
 
-4.  Create your `DocumentType`s:
+4)  Create your `DocumentType`s:
 
         client.create_document_type('youtube', 'videos');
         client.create_document_type('youtube', 'channels');
@@ -356,8 +359,8 @@ You can checkout the [Elastic Site Search community discuss forums](https://disc
 
 We welcome contributors to the project. Before you begin, a couple notes...
 
-+ Before opening a pull request, please create an issue to [discuss the scope of your proposal](https://github.com/swiftype/swiftype-py/issues).
-+ Please write simple code and concise documentation, when appropriate.
+- Before opening a pull request, please create an issue to [discuss the scope of your proposal](https://github.com/swiftype/swiftype-py/issues).
+- Please write simple code and concise documentation, when appropriate.
 
 ## License 📗
 
